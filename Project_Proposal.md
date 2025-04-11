@@ -9,9 +9,7 @@ We will also be analyzing the sentiment of the following few topics - monetary p
 
 In The Financial Market Effect of FOMC Minutes, a 2013 study done by Carlo Rosa (1), examines the intraday effect of the FOMC statement and the FOMC minutes on asset prices. The study concludes that the release of the FOMC statement has a strong short term effect on asset prices and the FOMC minutes also has a relatively strong short term effect on asset prices.
 
-The broader question we are addressing is how efficiently financial markets process and react to central bank communications, which has significant implications for the effectiveness of monetary policy transmission and market efficiency theory. This contributes to the ongoing debate about whether markets react more to the substance of policy announcements or to their sentiment and tone.
-
-Instead of focusing on the intraday effect, we are looking to analyze the effect of the FED announcements on a daily basis. The two questions we are trying to answer are - 
+The broader question we are addressing is how efficiently financial markets process and react to central bank communications, which has significant implications for the effectiveness of monetary policy transmission and market efficiency theory. Instead of focusing on the intraday effect, we are looking to analyze the effect of the FED announcements on a daily basis. The two questions we are trying to answer are - 
 - How do the FOMC statement, the FOMC meeting transcript, and the FOMC minutes affect various markets on the days of the release and up to 10 days after the release? 
     - We hypothesize that the FOMC statement and FOMC meeting transcript will have a more volatile effect on the market than the FOMC minutes.
 - How does more positive/negative sentiment overall correlate with the markets after the announcements, and how does positive/negative sentiment from our four topics correlate with the markets after the announcements? 
