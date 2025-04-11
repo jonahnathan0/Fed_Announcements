@@ -1,5 +1,5 @@
-### Project Proposal - FED Announcements
-# Brian F, Jonah N, Kyle H, Haley J
+# Project Proposal - FED Announcements
+### Brian F, Jonah N, Kyle H, Haley J
 
 
 ## Research Question 
