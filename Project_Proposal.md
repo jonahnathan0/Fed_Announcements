@@ -93,7 +93,8 @@ Other Markets:
 
 #### Key words
 1. Monetary Policy Decisions - 
-Primary Keywords:
+
+**Primary Keywords:**
 - "federal funds rate"
 - "policy rate"
 - "interest rate"
@@ -104,7 +105,7 @@ Primary Keywords:
 - "restrictive policy"
 - "basis points"
   
-Context Words (must appear within 20 words of primary keywords):
+**Context Words (must appear within 20 words of primary keywords):**
 - "increase"
 - "decrease"
 - "maintain"
@@ -117,7 +118,8 @@ Context Words (must appear within 20 words of primary keywords):
 A sentence will be classified as discussing monetary policy decisions if it contains at least one primary keyword AND one context word within a 20 word window.
 
 2. Economic conditions - 
-Primary Keywords:
+
+**Primary Keywords:**
 - "inflation"
 - "employment"
 - "unemployment"
@@ -130,7 +132,7 @@ Primary Keywords:
 - "price stability"
 - "economic outlook"
 
-Context Words (must appear within 25 words of primary keywords):
+**Context Words (must appear within 25 words of primary keywords):**
 - "increase"
 - "decrease"
 - "improve"
@@ -146,7 +148,8 @@ Context Words (must appear within 25 words of primary keywords):
 A sentence will be classified as discussing economic conditions if it contains at least one primary keyword AND one context word within a 25 word window.
 
 3. Forward guidance - 
-Primary Keywords:
+
+**Primary Keywords:**
 - "future"
 - "coming months"
 - "coming meetings"
@@ -159,7 +162,7 @@ Primary Keywords:
 - "foresee"
 - "project"
 
-Context Words (must appear within 30 words of primary keywords):
+**Context Words (must appear within 30 words of primary keywords):**
 - "policy"
 - "rate"
 - "stance"
@@ -172,8 +175,9 @@ Context Words (must appear within 30 words of primary keywords):
 - "Decision"
 A sentence will be classified as containing forward guidance if it contains at least one primary keyword AND one context word within a 30 word window.
 
-4. Balance sheet policy - 
-Primary Keywords:
+4. Balance sheet policy -
+
+**Primary Keywords:**
 - "balance sheet"
 - "asset purchase"
 - "securities"
@@ -188,7 +192,7 @@ Primary Keywords:
 - "QE"
 - "runoff"
 
-Context Words (must appear within 25 words of primary keywords): 
+**Context Words (must appear within 25 words of primary keywords):**
 - "increase"
 - "decrease"
 - "maintain"
@@ -205,8 +209,8 @@ A sentence will be classified as discussing balance sheet policy if it contains 
 
 
 
-Sources:
-1. https://www.newyorkfed.org/medialibrary/media/research/epr/2013/0913rosa.pdf 
+*Sources:*
+*1. https://www.newyorkfed.org/medialibrary/media/research/epr/2013/0913rosa.pdf* 
 
 
 
