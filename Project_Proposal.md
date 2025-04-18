@@ -35,7 +35,7 @@ For example, the final dataset format should look like this (wide format):
 | Category       | Variable(s)                                                               | Description                                                       |
 |---------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------|
 | 1. Event Data| Event_id, Date, Doc_type, Doc_url                                          | Unique ID, Date of the event, Type of document (statement, press <br> conference, intermeeting minutes), URL to Source  |
-| 2. Market Returns    | REST API with rate limiting and API key support.                           | Rate limit is 1000 requests/hour.<br>More available on request.  |
+| 2. Market Returns    | SP500_ret(-10) to SP500_ret(10), NASDAQ_ret(-10) to NASDAQ_ret (10), <br> DIJA_ret(-10) to DIJA_ret(10), Etc.      | Rate limit is 1000 requests/hour.<br>More available on request.  |
 | 3. Textual Sentiment Metrics     | Interactive dashboard for viewing analytics and managing settings.         | Includes charts, export tools, and user management options.      |
 | 4. Topic Specific Sentiment| Supports login via email, Google, and SSO.                                 | Google requires OAuth setup.                                     |
 | 5. LLM-Based Structured Labels    | REST API with rate limiting and API key support.                           | Rate limit is 1000 requests/hour.<br>More available on request.  |
