@@ -38,8 +38,8 @@ For example, the final dataset format should look like this (wide format):
 | 2. Market Returns    | SP500_ret(-10) to SP500_ret(10), NASDAQ_ret(-10) to NASDAQ_ret (10), <br> DIJA_ret(-10) to DIJA_ret(10), Etc.    | The daily log of returns from 10 days before to 10 days after each FOMC communication for each index  |
 | 3. Textual Sentiment Metrics     | ML_sentiment, LM_sentiment        | Sentiment scores using the ML and LM models     |
 | 4. Topic Specific Sentiment| Monetary_policy_sentiment, Guidance_sentiment, Economic_sentiment, Balance_sheet_sentiment        | Sentiment scores by policy topic which are filtered using keywords which will be displayed at the bottom of this document                                     |
-| 5. LLM-Based Structured Labels    | REST API with rate limiting and API key support.                           | Rate limit is 1000 requests/hour.<br>More available on request.  |
-| Dashboard     | Interactive dashboard for viewing analytics and managing settings.         | Includes charts, export tools, and user management options.      |
+| 5. LLM-Based Structured Labels    | Overall_bullishness, monetary _policy_view, Guidance_view, Economic_view, Balance_sheet_view     | Categorical sentiment/view labels (bullish = 1, neutral = 0, bearish = -1), generated via LLMs (ChatGPT)  |
+| ChronoBERT Scores     | chrono _sentiment, chrono_monetary _policy, Chrono_guidance, Chrono_economic, chrono_balance_sheet        | Bonus analysis: Temporally-constrained sentiment scores from ChronoBERT     |
 
 Our folder structure will be organized hierarchically with three main directories: raw_data (containing original FED documents and market data in separate subdirectories), processed_data (storing calculated sentiment scores and topic segmented docs), and analysis (with our outputs and visualizations).
 
