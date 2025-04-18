@@ -56,7 +56,7 @@ We want to perform a similar analysis to the mid-term project but go beyond that
 - Multi-document framework: Analyze two separate narratives. The first being the combination of the FED statement and the FED meeting minutes which occur on the same day. The second being the analysis of the FOMC intermeeting minutes which are released three weeks after the statement/meeting transcript.
 - Dynamic dashboard: Provide a shareable, and interactive website for users to explore the project. 
 
-Everything above that is italicized represents an advanced extension that we will be attempting to look at called ChronoBERT. This is a temporally aware LLM model that is trained on data from financial texts prior to the event that is being analyzed (announcement date). This avoids forward looking bias and may potentially outperform the normal models we use. This method “freezes” the model’s information at T-1, which helps allow us to mimic investor sentiment that could realistically be inferred at the time. 
+We will also be applying an advanced extension to analyze sentiment called ChronoBERT. This is a temporally aware LLM model that is trained on data from financial texts prior to the event that is being analyzed (announcement date). This avoids forward looking bias and may potentially outperform the normal models we use. This method “freezes” the model’s information at T-1, which helps allow us to mimic investor sentiment that could realistically be inferred at the time. 
 
 This project merges classic NLP, sentiment analysis, LLM reasoning, and temporal AI, to try and understand the central bank influence on financial markets.
 
