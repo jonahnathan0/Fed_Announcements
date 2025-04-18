@@ -3,7 +3,7 @@
 
 
 ## Research Question 
-This project investigates how the financial markets respond to the Federal Reserve’s three primary modes of communication: the 2:00 PM FOMC Statement, the 2:30 PM Press Conference Transcript, and the FOMC meeting minutes. Prior work on this topic shows that financial markets have a strong response to FOMC communications, but this work is focused on intraday data (Carlo Rosa, 2013)(1). Instead we will be looking at daily return data from 10 days prior leading up to the FED announcement and 10 days after the announcement. 
+This project investigates how the financial markets respond to the Federal Reserve’s three primary modes of communication: the 2:00 PM FED Statement, the 2:30 PM Press Conference Transcript, and the Federal Open Market Committee (FOMC) meeting minutes. Prior work on this topic shows that financial markets have a strong response to central bank communications, but this work is focused on intraday data (Carlo Rosa, 2013)(1). Instead we will be looking at daily return data from 10 days prior leading up to the FED announcement and 10 days after the announcement. 
 
 The big picture question we are trying to answer is: How do financial markets process monetary policy information from central bank communications, and can sentiment extracted from these texts explain market movements? 
 
@@ -28,7 +28,7 @@ We are going to be using Yahoo Finance to get the data for the indices, which ha
 
 Some other potential issues we assume: potential delays accessing recent transcripts, one off announcements that are missing one of the three documents we are analyzing, and document formats being inconsistent across time.
 
-We are going to be looking at the index returns every day from 10 days prior to the announcement to 10 days after the announcement. We will also be looking at many indices so the amount of rows/columns (depends if we do wide or long format) will multiply by 20 (for the days) and by the number of indices.
+We are going to be looking at the index returns every day from 10 days prior to the announcement to 10 days after the announcement. We will also be looking at many indices so the amount of rows/columns (depends if we do wide or long format) will multiply by 21 (for the days - 10 days prior to announcement, day of the announcement, and 10 days after the announcement) and by the number of indices.
 For example, the final dataset format should look like this (wide format):
 
 | Category       | Variable(s)                                                               | Description                                                       |
