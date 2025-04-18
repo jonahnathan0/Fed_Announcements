@@ -3,7 +3,7 @@
 
 
 ## Research Question 
-This project investigates how the financial markets respond to the Federal Reserve’s three primary modes of communication: the 2:00 PM FED Statement, the 2:30 PM Press Conference Transcript, and the Federal Open Market Committee (FOMC) meeting minutes. Prior work on this topic shows that financial markets have a strong response to central bank communications, but this work is focused on intraday data (Carlo Rosa, 2013)(1). Instead we will be looking at daily return data from 10 days prior leading up to the FED announcement and 10 days after the announcement. 
+This project investigates how the financial markets respond to the Federal Reserve’s three primary modes of communication: the 2:00 PM FED Statement, the 2:30 PM Press Conference Transcript, and the Federal Open Market Committee (FOMC) meeting minutes (released 3 weeks after the announcement). Prior work on this topic shows that financial markets have a strong response to central bank communications, but this work is focused on intraday data (Carlo Rosa, 2013)(1). Instead we will be looking at daily return data from 10 days prior leading up to the FED announcement and 10 days after the announcement. 
 
 The big picture question we are trying to answer is: How do financial markets process monetary policy information from central bank communications, and can sentiment extracted from these texts explain market movements? 
 
