@@ -92,7 +92,7 @@ Other Markets:
 
 
 #### Key words
-1. Monetary Policy Decisions - 
+##### 1. Monetary Policy Decisions - 
 
 **Primary Keywords:**
 - "federal funds rate"
@@ -117,7 +117,7 @@ Other Markets:
 - "unanimous"
 A sentence will be classified as discussing monetary policy decisions if it contains at least one primary keyword AND one context word within a 20 word window.
 
-2. Economic conditions - 
+##### 2. Economic conditions - 
 
 **Primary Keywords:**
 - "inflation"
@@ -147,7 +147,7 @@ A sentence will be classified as discussing monetary policy decisions if it cont
 - "volatile"
 A sentence will be classified as discussing economic conditions if it contains at least one primary keyword AND one context word within a 25 word window.
 
-3. Forward guidance - 
+##### 3. Forward guidance - 
 
 **Primary Keywords:**
 - "future"
@@ -175,7 +175,7 @@ A sentence will be classified as discussing economic conditions if it contains a
 - "Decision"
 A sentence will be classified as containing forward guidance if it contains at least one primary keyword AND one context word within a 30 word window.
 
-4. Balance sheet policy -
+##### 4. Balance sheet policy -
 
 **Primary Keywords:**
 - "balance sheet"
@@ -210,6 +210,7 @@ A sentence will be classified as discussing balance sheet policy if it contains 
 
 
 *Sources:*
+
 *1. https://www.newyorkfed.org/medialibrary/media/research/epr/2013/0913rosa.pdf* 
 
 
