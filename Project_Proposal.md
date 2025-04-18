@@ -7,7 +7,6 @@ This project investigates how the financial markets respond to the Federal Reser
 
 The big picture question we are trying to answer is: How do financial markets process monetary policy information from central bank communications, and can sentiment extracted from these texts explain market movements? 
 
-* The italicized text will be explained at the bottom
 
 More specific research questions:
 - Do textual sentiment and structured views derived from central bank communications significantly predict short-term market reactions?
