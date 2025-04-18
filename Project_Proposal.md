@@ -61,9 +61,34 @@ Everything above that is italicized represents an advanced extension that we wil
 This project merges classic NLP, sentiment analysis, LLM reasoning, and temporal AI, to try and understand the central bank influence on financial markets.
 
 
-### Data Lists
-
+## Data Lists
 #### Potential Indices that will be analyzed 
+Major U.S Indices:
+- S & P 500 
+- NASDAQ Composite
+- Dow Jones Industrial Average
+- Russell 2000
+- Wilshire 5000
+
+U.S Sector Indices:
+- Financials - XLF
+- Real Estate - XLRE
+- Utilitilites - XLY
+- Consumer Discretionary XLY 
+- Consumer Staples - XLP 
+- Energy - XLE 
+- Healthcare - XLV 
+- Industrials - XLI 
+- Materials - XLB 
+- Information Technology - XLK 
+- Communication Services - XLC 
+
+Other Markets:
+- Two-year treasury yield
+- Ten-year treasury yield 
+- Euro/U.S. dollar 
+- Swiss franc/U.S. dollar 
+- Japanese yen/ U.S. dollar
 
 
 #### Key words
