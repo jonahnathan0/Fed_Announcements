@@ -44,6 +44,12 @@ For example, the final dataset format should look like this (wide format):
 Our folder structure will be organized hierarchically with three main directories: raw_data (containing original FED documents and market data in separate subdirectories), processed_data (storing calculated sentiment scores and topic segmented docs), and analysis (with our outputs and visualizations).
 
 
+## Planned Outputs
+Our final deliverable for this project will be a dashboard that shows all of our research, from the methodology to our conclusions. The dashboard will include correlation tables and charts that will allow a user to explore our data. Since we will be using over a dozen of different indices with returns for 20 days around the FED communication, we will want to implement dynamic visualizations onto the dashboard. These will consist of scatterplots to display returns versus different sentiment topics, and boxplots that compare returns across different document types. We also want users to understand which NLP method is being used when they look at the graphs, so there will be clear labels captions describing what is being looked at. 
+
+Besides having dynamic sections with descriptions for users to look at, we will also have our own conclusion section that examines findings from the data. 
+
+
 ## Ambition
 We want to perform a similar analysis to the mid-term project but go beyond that and see what is possible with NLP applications for finance. Our project has the following aspects - 
 - Sentiment analysis: Combining analysis for an LM dictionary, ML dictionary, and LLM views 
@@ -54,6 +60,15 @@ We want to perform a similar analysis to the mid-term project but go beyond that
 Everything above that is italicized represents an advanced extension that we will be attempting to look at called ChronoBERT. This is a temporally aware LLM model that is trained on data from financial texts prior to the event that is being analyzed (announcement date). This avoids forward looking bias and may potentially outperform the normal models we use. This method “freezes” the model’s information at T-1, which helps allow us to mimic investor sentiment that could realistically be inferred at the time. 
 
 This project merges classic NLP, sentiment analysis, LLM reasoning, and temporal AI, to try and understand the central bank influence on financial markets.
+
+
+### Data Lists
+
+#### Potential Indices that will be analyzed 
+
+
+#### Key words
+
 
 
 Sources:
