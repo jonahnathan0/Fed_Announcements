@@ -92,6 +92,116 @@ Other Markets:
 
 
 #### Key words
+1. Monetary Policy Decisions - 
+Primary Keywords:
+- "federal funds rate"
+- "policy rate"
+- "interest rate"
+- "monetary policy stance"
+- "tightening"
+- "easing"
+- "accommodative policy"
+- "restrictive policy"
+- "basis points"
+  
+Context Words (must appear within 20 words of primary keywords):
+- "increase"
+- "decrease"
+- "maintain"
+- "adjust"
+- "change"
+- "vote"
+- "decision"
+- "committee"
+- "unanimous"
+A sentence will be classified as discussing monetary policy decisions if it contains at least one primary keyword AND one context word within a 20 word window.
+
+2. Economic conditions - 
+Primary Keywords:
+- "inflation"
+- "employment"
+- "unemployment"
+- "economic activity"
+- "growth"
+- "GDP"
+- "consumer spending"
+- "business investment"
+- "labor market"
+- "price stability"
+- "economic outlook"
+
+Context Words (must appear within 25 words of primary keywords):
+- "increase"
+- "decrease"
+- "improve"
+- "deteriorate"
+- "strengthen"
+- "weaken"
+- "expand"
+- "contract"
+- "moderate"
+- "elevated"
+- "stable"
+- "volatile"
+A sentence will be classified as discussing economic conditions if it contains at least one primary keyword AND one context word within a 25 word window.
+
+3. Forward guidance - 
+Primary Keywords:
+- "future"
+- "coming months"
+- "coming meetings"
+- "outlook"
+- "path"
+- "trajectory"
+- "forward guidance"
+- "anticipate"
+- "expect"
+- "foresee"
+- "project"
+
+Context Words (must appear within 30 words of primary keywords):
+- "policy"
+- "rate"
+- "stance"
+- "adjust"
+- "accommodation"
+- "tightening"
+- "restrictive"
+- "neutral"
+- "appropriate"
+- "Decision"
+A sentence will be classified as containing forward guidance if it contains at least one primary keyword AND one context word within a 30 word window.
+
+4. Balance sheet policy - 
+Primary Keywords:
+- "balance sheet"
+- "asset purchase"
+- "securities"
+- "Treasury securities"
+- "agency debt"
+- "mortgage-backed securities"
+- "MBS"
+- "portfolio"
+- "holdings"
+- "reinvestment"
+- "quantitative easing"
+- "QE"
+- "runoff"
+
+Context Words (must appear within 25 words of primary keywords): 
+- "increase"
+- "decrease"
+- "maintain"
+- "continue"
+- "reduce"
+- "expand"
+- "cap"
+- "taper"
+- "normalize"
+- "roll over"
+- "maturity"
+A sentence will be classified as discussing balance sheet policy if it contains at least one primary keyword AND one context word within a 25 word window.
+
 
 
 
