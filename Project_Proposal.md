@@ -73,7 +73,7 @@ Major U.S Indices:
 U.S Sector Indices:
 - Financials - XLF
 - Real Estate - XLRE
-- Utilitilites - XLY
+- Utilities - XLY
 - Consumer Discretionary XLY 
 - Consumer Staples - XLP 
 - Energy - XLE 
