@@ -1,3 +1,5 @@
+import re
+
 def NEAR_regex(list_of_words,max_words_between=5,partial=False,
                cases_matter=False,greedy=True):
     '''
