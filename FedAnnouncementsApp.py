@@ -40,10 +40,19 @@ if all_option in selected_indices_raw:
 else:
     selected_indices = selected_indices_raw
 
-selected_doc_type = st.sidebar.multiselect(
+doc_all_option = "Select All"
+doc_type_options_with_all = [doc_all_option] + list(doc_type_options)
+
+selected_doc_type_raw = st.sidebar.multiselect(
     "Select Document Type(s)",
-    options=doc_type_options
+    options=doc_type_options_with_all,
+    default=[]
 )
+
+if doc_all_option in selected_doc_type_raw:
+    selected_doc_type = list(doc_type_options)
+else:
+    selected_doc_type = selected_doc_type_raw
 
 # ---------- SPLASH SCREEN ----------
 if not selected_indices or not selected_doc_type:
