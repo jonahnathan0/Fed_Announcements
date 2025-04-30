@@ -14,15 +14,14 @@ df['announcement_date'] = pd.to_datetime(df['announcement_date'])
 
 # ---------- COLUMN LOGIC ----------
 return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
-date_options = df['announcement_date'].dropna().sort_values().unique()
+date_options = pd.to_datetime(df['announcement_date'].dropna().sort_values().unique())
 
 # ---------- SLIDER ----------
-selected_date = st.slider(
+selected_date = st.select_slider(
     'Select an FOMC Announcement Date:',
-    min_value=pd.to_datetime(date_options.min()),
-    max_value=pd.to_datetime(date_options.max()),
-    value=pd.to_datetime(date_options.min()),
-    format="YYYY-MM-DD"
+    options=list(date_options),
+    value=date_options[0],
+    format_func=lambda x: x.strftime('%Y-%m-%d')
 )
 
 # ---------- FILTER FOR SELECTED DATE ----------
