@@ -15,6 +15,15 @@ df['announcement_date'] = pd.to_datetime(df['announcement_date'])
 # ---------- COLUMN LOGIC ----------
 return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
 date_options = pd.to_datetime(df['announcement_date'].dropna().sort_values().unique())
+ticker_options = sorted(df['ticker'].dropna().unique())
+
+# ---------- SIDEBAR: Ticker Filter ----------
+st.sidebar.header('Select Market Index/Indices')
+selected_tickers = st.sidebar.multiselect(
+    'Tickers to display:',
+    options=ticker_options,
+    default=ticker_options[:1]  # default to first ticker
+)
 
 # ---------- SLIDER ----------
 selected_date = st.select_slider(
@@ -24,19 +33,16 @@ selected_date = st.select_slider(
     format_func=lambda x: x.strftime('%Y-%m-%d')
 )
 
-# ---------- FILTER FOR SELECTED DATE ----------
-selected_row = df[df['announcement_date'] == selected_date]
+# ---------- FILTER FOR SELECTED DATE & TICKERS ----------
+filtered_df = df[(df['announcement_date'] == selected_date) & (df['ticker'].isin(selected_tickers))]
 
-if selected_row.empty:
-    st.warning('No data available for the selected date.')
+if filtered_df.empty:
+    st.warning('No data available for the selected date and tickers.')
     st.stop()
 
-# ---------- EXTRACT INFO ----------
-selected_type = selected_row['document_type'].values[0]
-selected_ticker = selected_row['ticker'].values[0]
-
 # ---------- PREP FOR PLOTTING ----------
-melted = selected_row.melt(
+melted = filtered_df.melt(
+    id_vars=['ticker', 'document_type'],
     value_vars=return_cols,
     var_name='Day',
     value_name='Return'
@@ -52,10 +58,11 @@ melted['Day'] = pd.Categorical(melted['Day'], categories=sorted(return_cols, key
 
 # ---------- PLOT ----------
 fig, ax = plt.subplots(figsize=(12, 5))
-sns.lineplot(data=melted, x='Day', y='Return', marker='o', ax=ax)
+sns.lineplot(data=melted, x='Day', y='Return', hue='ticker', marker='o', ax=ax)
 
 ax.axvline(x='T0', color='red', linestyle='--')
-ax.set_title(f'{selected_type.capitalize()} on {selected_date.date()} — Returns for {selected_ticker}')
+announcement_type = filtered_df['document_type'].iloc[0].capitalize()
+ax.set_title(f'{announcement_type} on {selected_date.date()} — Market Returns')
 ax.set_xlabel('Days from Announcement')
 ax.set_ylabel('Return')
 ax.grid(True)
