@@ -16,8 +16,7 @@ if page == 'Home':
     st.title('Market Reactions to FED Announcements')
     
     st.markdown('''
-    This app shows how financial markets react to different types of Federal Reserve communications  
-    (using various sentiment analysis methods).  
+    This app shows how financial markets react to different types of Federal Reserve communications (using various sentiment analysis methods).  
     
     Use the dropdowns to explore different relationships.
     ''')
