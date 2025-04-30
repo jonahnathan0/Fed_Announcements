@@ -2,6 +2,13 @@ import streamlit as st
 from streamlit.components.v1 import html
 import pandas as pd
 
+# ------------------ PAGE CONFIG (Must Be First) ------------------
+st.set_page_config(
+    page_title='FED Sentiment Dashboard',
+    layout='wide',
+    initial_sidebar_state='expanded'
+)
+
 # ------------------ CUSTOM CSS STYLE ------------------
 st.markdown("""
     <style>
@@ -35,7 +42,7 @@ st.markdown("""
 
         /* Button styling */
         .stButton>button {
-            background-color: #2563eb;  /* Blue */
+            background-color: #2563eb;
             color: white;
             border-radius: 6px;
             padding: 0.4em 1em;
@@ -48,13 +55,6 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
-# ------------------ PAGE CONFIG ------------------
-st.set_page_config(
-    page_title='FED Sentiment Dashboard',
-    layout='wide',
-    initial_sidebar_state='expanded'
-)
 
 # ------------------ SIDEBAR NAV ------------------
 with st.sidebar:
