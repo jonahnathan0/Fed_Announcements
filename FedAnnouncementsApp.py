@@ -100,7 +100,6 @@ if selected_set == {'statement'} or selected_set == {'intermeeting'}:
         var_name='Day',
         value_name='Return'
     )
-    melted['Day'] = melted['Day'].str.replace('T', '').astype(int)
 
     fig_line, ax_line = plt.subplots(figsize=(12, 5))
     sns.lineplot(data=melted, x='Day', y='Return', hue='ticker', ax=ax_line)
@@ -121,7 +120,6 @@ elif selected_set == {'statement', 'intermeeting'}:
         var_name='Day',
         value_name='Return'
     )
-    melted['Day'] = melted['Day'].str.replace('T', '').astype(int)
 
     avg_by_type = melted.groupby(['document_type', 'Day'])['Return'].mean().reset_index()
 
