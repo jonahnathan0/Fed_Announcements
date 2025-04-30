@@ -4,40 +4,16 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# ---------- REAL DATA ----------
+# ---------- CONFIG & DATA ----------
 st.set_page_config(page_title="FED Sentiment Dashboard", layout="wide")
 df = pd.read_csv("raw_data/final_dataset.csv")
 
-# Identify columns
 sentiment_cols = [col for col in df.columns if 'Score' in col or 'sentiment' in col]
 return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
 index_options = sorted(df['ticker'].dropna().unique())
 doc_type_options = df['document_type'].dropna().unique()
 
-# ---------- SIDEBAR FILTERS ----------
-st.sidebar.header("Filters")
-
-# Select All Indices + Multiselect
-select_all_indices = st.sidebar.checkbox("Select All Indices", value=True)
-if select_all_indices:
-    selected_indices = index_options
-else:
-    selected_indices = st.sidebar.multiselect(
-        "Select Market Index (multiple allowed)", 
-        options=index_options, 
-        default=index_options[:1]
-    )
-
-# Document type multiselect
-selected_doc_type = st.sidebar.multiselect(
-    "Select Document Type(s)",
-    options=doc_type_options,
-    default=doc_type_options
-)
-
-# ---------- SPLASH SCREEN ----------
-show_splash = select_all_indices or len(selected_indices) == 0
-
+# ---------- TITLE & INTRO ----------
 st.title("Market Reactions to FED Announcements")
 
 st.markdown("""
@@ -47,12 +23,26 @@ using various sentiment analysis methods.
 Use the dropdowns to explore different relationships.
 """)
 
-if show_splash:
-    st.image("assets/Banking-December-FOMC-announcement-live-blog.jpg", use_column_width=True)
+# ---------- SIDEBAR FILTERS ----------
+st.sidebar.header("Filters")
+
+selected_indices = st.sidebar.multiselect(
+    "Select Market Index (multiple allowed)", 
+    options=index_options
+)
+
+selected_doc_type = st.sidebar.multiselect(
+    "Select Document Type(s)",
+    options=doc_type_options
+)
+
+# ---------- SPLASH SCREEN ----------
+if not selected_indices or not selected_doc_type:
+    st.image("assets/Banking-December-FOMC-announcement-live-blog.jpg", use_container_width=True)
     st.markdown("Use the filters on the left to get started.")
     st.stop()
 
-# ---------- FILTER DATA ----------
+# ---------- FILTERED DATA ----------
 filtered_data = df[
     (df['ticker'].isin(selected_indices)) &
     (df['document_type'].isin(selected_doc_type))
@@ -76,12 +66,12 @@ sns.heatmap(
     cbar=True,
     ax=ax
 )
-title_label = "All Indices" if len(selected_indices) == len(index_options) else ", ".join(selected_indices)
+title_label = ", ".join(selected_indices)
 ax.set_title(f"Correlation: {title_label} - Sentiment vs. Market Returns", fontsize=14)
 plt.xticks(rotation=45)
 st.pyplot(fig)
 
-# ---------- CONCLUSIONS SECTION ----------
+# ---------- CONCLUSIONS ----------
 st.subheader("Conclusions")
 st.markdown("""
 This dashboard shows how different sentiment signals relate to market performance around FOMC announcements.
