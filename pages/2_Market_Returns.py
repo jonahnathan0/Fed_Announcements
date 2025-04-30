@@ -1,18 +1,21 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from utils import load_data
 
+# ---------- CONFIG ----------
 st.set_page_config(page_title='Market Returns', layout='wide')
 st.title('📊 Market Returns by Index and Document Type')
 
-df = pd.read_csv('raw_data/final_dataset.csv')
+# ---------- LOAD DATA ----------
+df = load_data()
 sentiment_cols = [col for col in df.columns if 'Score' in col or 'sentiment' in col]
 return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
 index_options = sorted(df['ticker'].dropna().unique())
 doc_type_options = df['document_type'].dropna().unique()
 
+# ---------- SIDEBAR FILTERS ----------
 st.sidebar.header('Filters')
 
 all_option = 'Select All'
@@ -24,10 +27,7 @@ selected_indices_raw = st.sidebar.multiselect(
     default=[]
 )
 
-if all_option in selected_indices_raw:
-    selected_indices = index_options
-else:
-    selected_indices = selected_indices_raw
+selected_indices = index_options if all_option in selected_indices_raw else selected_indices_raw
 
 doc_all_option = 'Select All'
 doc_type_options_with_all = [doc_all_option] + list(doc_type_options)
@@ -42,15 +42,18 @@ selected_doc_type = [doc for doc in selected_doc_type_raw if doc != doc_all_opti
 if not selected_doc_type:
     selected_doc_type = list(doc_type_options)
 
+# ---------- VALIDATION ----------
 if not selected_indices or not selected_doc_type:
     st.warning('Please select at least one index and one document type.')
     st.stop()
 
+# ---------- FILTERED DATA ----------
 filtered_data = df[
     (df['ticker'].isin(selected_indices)) &
     (df['document_type'].isin(selected_doc_type))
 ]
 
+# ---------- CORRELATION HEATMAP ----------
 st.subheader('Correlation Heatmap: Sentiment vs. Market Returns')
 
 corr_matrix = filtered_data[sentiment_cols + return_cols].corr()
