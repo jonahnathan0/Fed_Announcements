@@ -79,35 +79,3 @@ ax.grid(True)
 plt.xticks(rotation=45)
 plt.tight_layout()
 st.pyplot(fig)
-
-# ---------- CORRELATION MATRIX FOR THIS EVENT ----------
-st.subheader('Sentiment vs. Return Correlation for This Announcement')
-sentiment_vector = filtered_df[sentiment_cols].iloc[0]
-returns_matrix = filtered_df.set_index('ticker')[return_cols]
-
-returns_transposed = returns_matrix.T
-sentiment_df = pd.DataFrame([sentiment_vector] * returns_transposed.shape[0], index=returns_transposed.index)
-
-combined = pd.concat([sentiment_df, returns_transposed], axis=1)
-combined = combined.dropna()
-
-if combined.shape[0] < 2:
-    st.info('Not enough variation across returns to compute correlation.')
-else:
-    corr_matrix = combined.corr().loc[sentiment_cols, return_cols]
-
-    fig_corr, ax_corr = plt.subplots(figsize=(14, 6))
-    sns.heatmap(
-        corr_matrix,
-        annot=True,
-        fmt='.2f',
-        cmap='coolwarm',
-        center=0,
-        linewidths=0.3,
-        linecolor='black',
-        ax=ax_corr
-    )
-    ax_corr.set_title(f'Correlation: Sentiment vs. Market Returns — {announcement_type} on {selected_date.strftime("%Y-%m-%d")}')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    st.pyplot(fig_corr)
