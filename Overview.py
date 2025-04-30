@@ -22,12 +22,22 @@ st.markdown("""
             color: #ffffff !important;
         }
 
-        /* Keep default font across body */
+        /* Base light theme */
         html, body, [class*="css"] {
             color: #1f2937 !important;
         }
 
-        /* Header styling (no font override) */
+        /* Override for dark mode */
+        @media (prefers-color-scheme: dark) {
+            html, body, [class*="css"] {
+                color: #ffffff !important;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                color: #ffffff !important;
+            }
+        }
+
+        /* Header styling (light mode default) */
         h1, h2, h3, h4, h5, h6 {
             font-weight: 700 !important;
             color: #1f2937 !important;
