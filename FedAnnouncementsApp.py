@@ -5,7 +5,6 @@ import pandas as pd
 # ------------------ PAGE CONFIG ------------------
 st.set_page_config(
     page_title='FED Sentiment Dashboard',
-    page_icon='📈',
     layout='wide',
     initial_sidebar_state='expanded'
 )
@@ -17,7 +16,7 @@ with st.sidebar:
     st.markdown('[Fed Announcements Project Repo](https://github.com/jonahnathan0/Fed_Announcements)')
 
 # ------------------ OVERVIEW ------------------
-st.title('📈 Market Reactions to FED Announcements')
+st.title('Market Reactions to Central Bank Communications')
 
 # Display image at the top
 st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', use_container_width=True)

@@ -1,12 +1,30 @@
 import streamlit as st
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-st.set_page_config(page_title='Report', layout='wide')
-st.title('📄 Executive Summary: FED Sentiment and Market Reactions')
+# ---------- CONFIG ----------
+st.set_page_config(page_title='Market Returns', layout='wide')
+st.title('Report: Market Reactions to Central Bank Communications')
 
 st.markdown('''
-## Preface / Context
+    ### Key Takeaways
 
-FILL IN
+    - FILL IN INFO
+    - FILL IN INFO
+    - FILL IN INFO
 
+    ### Summary Metrics
+    
+    - FILL IN INFO
+    - FILL IN INFO
+    - FILL IN INFO
+
+    ### Recommendation
+
+    - FILL IN INFO
+    - FILL IN INFO
+    - FILL IN INFO
 
 ''')

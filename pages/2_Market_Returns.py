@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # ---------- CONFIG ----------
 st.set_page_config(page_title='Market Returns', layout='wide')
-st.title('📊 Market Returns by Index and Document Type')
+st.title('Market Returns by Index and Document Type')
 
 # ---------- LOAD DATA ----------
 df = pd.read_csv('raw_data/final_dataset.csv')
