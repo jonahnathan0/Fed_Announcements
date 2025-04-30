@@ -57,6 +57,8 @@ if page == 'Home':
     selected_doc_type = [doc for doc in selected_doc_type_raw if doc != doc_all_option]
     if not selected_doc_type:
         selected_doc_type = list(doc_type_options)
+
+    st.sidebar.markdown('[Fed Announcements Project Repo](https://github.com/jonahnathan0/Fed_Announcements)')
     
     # ---------- SPLASH SCREEN ----------
     if not selected_indices or not selected_doc_type:
