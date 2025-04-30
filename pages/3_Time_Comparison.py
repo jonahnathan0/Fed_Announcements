@@ -82,16 +82,23 @@ st.pyplot(fig)
 
 # ---------- CORRELATION MATRIX FOR THIS EVENT ----------
 st.subheader('Sentiment vs. Return Correlation for This Announcement')
-corr_subset = filtered_df[sentiment_cols + return_cols].dropna()
+sentiment_vector = filtered_df[sentiment_cols].iloc[0]
+returns_matrix = filtered_df.set_index('ticker')[return_cols]
 
-if corr_subset.shape[0] < 2:
-    st.info('Not enough data across selected tickers for correlation calculation.')
+returns_transposed = returns_matrix.T
+sentiment_df = pd.DataFrame([sentiment_vector] * returns_transposed.shape[0], index=returns_transposed.index)
+
+combined = pd.concat([sentiment_df, returns_transposed], axis=1)
+combined = combined.dropna()
+
+if combined.shape[0] < 2:
+    st.info('Not enough variation across returns to compute correlation.')
 else:
-    event_corr = corr_subset.corr().loc[sentiment_cols, return_cols]
+    corr_matrix = combined.corr().loc[sentiment_cols, return_cols]
 
     fig_corr, ax_corr = plt.subplots(figsize=(14, 6))
     sns.heatmap(
-        event_corr,
+        corr_matrix,
         annot=True,
         fmt='.2f',
         cmap='coolwarm',
