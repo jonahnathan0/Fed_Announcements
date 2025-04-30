@@ -78,3 +78,30 @@ ax.grid(True)
 plt.xticks(rotation=45)
 plt.tight_layout()
 st.pyplot(fig)
+
+# ---------- CORRELATION MATRIX FOR THIS EVENT ----------
+st.subheader('Sentiment vs. Return Correlation for This Announcement')
+
+sentiment_cols = [col for col in df.columns if 'sentiment' in col or 'Score' in col]
+corr_subset = filtered_df[sentiment_cols + return_cols]
+
+if corr_subset.shape[0] < 2:
+    st.info('Not enough data for correlation calculation.')
+else:
+    event_corr = corr_subset.corr().loc[sentiment_cols, return_cols]
+
+    fig_corr, ax_corr = plt.subplots(figsize=(14, 6))
+    sns.heatmap(
+        event_corr,
+        annot=True,
+        fmt='.2f',
+        cmap='coolwarm',
+        center=0,
+        linewidths=0.3,
+        linecolor='black',
+        ax=ax_corr
+    )
+    ax_corr.set_title(f'Correlation: Sentiment vs. Market Returns — {announcement_type} on {selected_date.strftime("%Y-%m-%d")}')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    st.pyplot(fig_corr)
