@@ -66,9 +66,9 @@ with st.sidebar:
 st.title('Market Reactions to Central Bank Communications')
 
 # Display image at the top and center it
-col1, col2, col3 = st.columns([1, 2, 1])
+col1, col2, col3 = st.columns([1, 4, 1])
 with col2:
-    st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', width=1200)
+    st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', width=1000)
 
 st.markdown('''
 ## Project Context
