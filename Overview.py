@@ -19,14 +19,10 @@ with st.sidebar:
 st.title('Market Reactions to Central Bank Communications')
 
 # Display image at the top
-st.markdown(
-    """
-    <div style="text-align: center;">
-        <img src="assets/Banking-December-FOMC-announcement-live-blog.jpg" width="500"/>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', width=500)
+
 
 st.markdown('''
 ## Project Context
