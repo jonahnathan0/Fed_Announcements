@@ -18,8 +18,8 @@ st.markdown("""
         }
 
         /* Sidebar text */
-        [data-testid="stSidebar"] .css-1v3fvcr {
-            color: #ffffff;
+        [data-testid="stSidebar"] * {
+            color: #ffffff !important;  /* Force white text in sidebar */
         }
 
         /* Set universal font */
@@ -34,7 +34,7 @@ st.markdown("""
             color: #0f172a;
         }
 
-        /* Links in sidebar */
+        /* Links in sidebar and elsewhere */
         a {
             color: #60a5fa !important;
             text-decoration: none;
@@ -52,6 +52,7 @@ st.markdown("""
         /* Dropdown label */
         .stSelectbox label {
             font-weight: bold;
+            color: #ffffff;
         }
     </style>
 """, unsafe_allow_html=True)
