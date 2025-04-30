@@ -17,13 +17,22 @@ return_cols = [col for col in df.columns if col.startswith('T') and col[1:].repl
 date_options = pd.to_datetime(df['announcement_date'].dropna().sort_values().unique())
 ticker_options = sorted(df['ticker'].dropna().unique())
 
-# ---------- SIDEBAR: Ticker Filter ----------
+# ---------- SIDEBAR: Ticker Filter with Select All ----------
 st.sidebar.header('Select Market Index/Indices')
-selected_tickers = st.sidebar.multiselect(
+
+all_option = 'Select All'
+ticker_options_with_all = [all_option] + ticker_options
+
+selected_tickers_raw = st.sidebar.multiselect(
     'Tickers to display:',
-    options=ticker_options,
-    default=ticker_options[:1]  # default to first ticker
+    options=ticker_options_with_all,
+    default=ticker_options[:1]
 )
+
+if all_option in selected_tickers_raw:
+    selected_tickers = ticker_options
+else:
+    selected_tickers = selected_tickers_raw
 
 # ---------- SLIDER ----------
 selected_date = st.select_slider(
@@ -41,7 +50,7 @@ if filtered_df.empty:
     st.stop()
 
 # ---------- PREP FOR PLOTTING ----------
-melted = filtered_df.melt(
+returns_long_format = filtered_df.melt(
     id_vars=['ticker', 'document_type'],
     value_vars=return_cols,
     var_name='Day',
@@ -54,11 +63,11 @@ def sort_key(day_str):
     sign = -1 if '-' in day_str else 1
     return sign * int(day_str.replace('T', '').replace('+', '').replace('-', ''))
 
-melted['Day'] = pd.Categorical(melted['Day'], categories=sorted(return_cols, key=sort_key), ordered=True)
+returns_long_format['Day'] = pd.Categorical(returns_long_format['Day'], categories=sorted(return_cols, key=sort_key), ordered=True)
 
 # ---------- PLOT ----------
 fig, ax = plt.subplots(figsize=(12, 5))
-sns.lineplot(data=melted, x='Day', y='Return', hue='ticker', marker='o', ax=ax)
+sns.lineplot(data=returns_long_format, x='Day', y='Return', hue='ticker', marker='o', ax=ax)
 
 ax.axvline(x='T0', color='red', linestyle='--')
 announcement_type = filtered_df['document_type'].iloc[0].capitalize()
