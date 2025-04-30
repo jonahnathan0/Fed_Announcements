@@ -92,7 +92,9 @@ st.pyplot(fig)
 # ---------- AVERAGE RETURN LINE CHART ----------
 st.subheader('Average Return by Day Relative to FOMC Announcement')
 
-if set(selected_doc_type) <= {'statement', 'intermeeting'} and selected_doc_type:
+allowed_types = {'statement', 'intermeeting'}
+s)
+if selected_doc_type and set(selected_doc_type).issubset(allowed_types):
     melted = filtered_data.melt(
         id_vars=['ticker'],
         value_vars=return_cols,
