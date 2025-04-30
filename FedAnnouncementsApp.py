@@ -18,9 +18,7 @@ st.title('Market Reactions to FED Announcements')
 
 st.markdown('''
 This app shows how financial markets react to different types of Federal Reserve communications
-using various sentiment analysis methods.
-
-Use the dropdowns to explore different relationships.
+using various sentiment analysis methods. Use the dropdowns to explore different relationships.
 ''')
 
 # ---------- SIDEBAR FILTERS ----------
@@ -49,10 +47,9 @@ selected_doc_type_raw = st.sidebar.multiselect(
     default=[]
 )
 
-if doc_all_option in selected_doc_type_raw:
+selected_doc_type = [doc for doc in selected_doc_type_raw if doc != doc_all_option]
+if not selected_doc_type:
     selected_doc_type = list(doc_type_options)
-else:
-    selected_doc_type = selected_doc_type_raw
 
 # ---------- SPLASH SCREEN ----------
 if not selected_indices or not selected_doc_type:
@@ -94,9 +91,7 @@ st.subheader('Average Return by Day Relative to FOMC Announcement')
 
 allowed_types = {'statement', 'intermeeting'}
 
-doc_type_check = [doc for doc in selected_doc_type if doc in allowed_types]
-
-if selected_doc_type and set(selected_doc_type) == set(doc_type_check):
+if selected_doc_type and set(selected_doc_type).issubset(allowed_types):
     melted = filtered_data.melt(
         id_vars=['ticker'],
         value_vars=return_cols,
