@@ -1,8 +1,8 @@
-[server]
-headless = true
-
-[runner]
-magicEnabled = true
-script = "FedAnnouncementsApp.py"
 
 
+[theme]
+base = "light"
+primaryColor = "#003366"             # Deep blue — trustworthy, financial tone
+secondaryBackgroundColor = "#f0f4f8" # Soft gray-blue — clean sidebar
+textColor = "#000000"                # Black text — readable
+font = "sans serif"
