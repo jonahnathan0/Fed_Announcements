@@ -90,8 +90,10 @@ st.pyplot(fig)
 st.subheader('Average Return by Day Relative to FOMC Announcement')
 
 allowed_types = {'statement', 'intermeeting'}
+selected_set = set(selected_doc_type)
 
-if selected_doc_type and set(selected_doc_type).issubset(allowed_types):
+if selected_set == {'statement'} or selected_set == {'intermeeting'}:
+    # Single type selected — plot one line
     melted = filtered_data.melt(
         id_vars=['ticker'],
         value_vars=return_cols,
@@ -104,14 +106,39 @@ if selected_doc_type and set(selected_doc_type).issubset(allowed_types):
     sns.lineplot(data=melted, x='Day', y='Return', hue='ticker', ax=ax_line)
 
     ax_line.axvline(0, color='red', linestyle='--')
-    ax_line.set_title('Average Market Return Relative to Announcement Day')
+    ax_line.set_title(f'Average Return for {list(selected_set)[0].capitalize()} Days')
     ax_line.set_xlabel('Days from FOMC Announcement')
     ax_line.set_ylabel('Average Return')
     ax_line.grid(True)
     plt.tight_layout()
     st.pyplot(fig_line)
+
+elif selected_set == {'statement', 'intermeeting'}:
+    # Both types selected — plot two lines grouped by document_type
+    melted = filtered_data.melt(
+        id_vars=['document_type'],
+        value_vars=return_cols,
+        var_name='Day',
+        value_name='Return'
+    )
+    melted['Day'] = melted['Day'].str.replace('T', '').astype(int)
+
+    avg_by_type = melted.groupby(['document_type', 'Day'])['Return'].mean().reset_index()
+
+    fig_line, ax_line = plt.subplots(figsize=(12, 5))
+    sns.lineplot(data=avg_by_type, x='Day', y='Return', hue='document_type', ax=ax_line)
+
+    ax_line.axvline(0, color='red', linestyle='--')
+    ax_line.set_title('Average Return by Day: Statement vs Intermeeting')
+    ax_line.set_xlabel('Days from FOMC Announcement')
+    ax_line.set_ylabel('Average Return')
+    ax_line.grid(True)
+    plt.tight_layout()
+    st.pyplot(fig_line)
+
 else:
-    st.info('This chart only displays when the document type is limited to \'statement\' or \'intermeeting\'.')
+    # Invalid selection (includes press conferences or anything else)
+    st.info('This chart only supports analysis of "statement" and/or "intermeeting" document types. Please select only those.')
 
 # ---------- CONCLUSIONS ----------
 st.subheader('Conclusions')
