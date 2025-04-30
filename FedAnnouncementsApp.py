@@ -18,6 +18,9 @@ with st.sidebar:
 # ------------------ OVERVIEW ------------------
 st.title('📈 Market Reactions to FED Announcements')
 
+# Display image at the top
+st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', use_container_width=True)
+
 st.markdown('''
 ## Project Context
 
