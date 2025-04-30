@@ -12,50 +12,51 @@ st.set_page_config(
 # ------------------ CUSTOM CSS STYLE ------------------
 st.markdown("""
     <style>
-        /* Sidebar background */
-        [data-testid="stSidebar"] {
-            background-color: #1f2937; /* Dark blue-gray */
-        }
-
-        /* Force all sidebar text to white and use Calibri */
-        [data-testid="stSidebar"] * {
-            color: #ffffff !important;
-            font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif !important;
-        }
-
-        /* Universal font and color for entire app */
-        html, body, [class*="css"] {
-            font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif !important;
+        /* Set global Calibri font across all elements */
+        html, body, [class*="css"], div, p, span, label, input, textarea, button {
+            font-family: Calibri !important;
             color: #1f2937 !important;
         }
 
-        /* All headers same font + weight */
+        /* Sidebar background */
+        [data-testid="stSidebar"] {
+            background-color: #1f2937;
+        }
+
+        /* Sidebar text */
+        [data-testid="stSidebar"] * {
+            color: #ffffff !important;
+            font-family: Calibri !important;
+        }
+
+        /* Headers */
         h1, h2, h3, h4, h5, h6 {
-            font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif !important;
+            font-family: Calibri !important;
             font-weight: 700 !important;
             color: #1f2937 !important;
         }
 
-        /* Links color */
+        /* Links */
         a {
             color: #2563eb !important;
             text-decoration: none;
         }
 
-        /* Button styling */
+        /* Buttons */
         .stButton>button {
             background-color: #2563eb;
             color: white;
             border-radius: 6px;
             padding: 0.4em 1em;
             font-weight: bold;
-            font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif !important;
+            font-family: Calibri !important;
         }
 
         /* Dropdown label */
         .stSelectbox label {
             font-weight: bold;
             color: #ffffff !important;
+            font-family: Calibri !important;
         }
     </style>
 """, unsafe_allow_html=True)
