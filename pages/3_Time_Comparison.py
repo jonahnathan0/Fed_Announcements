@@ -83,10 +83,11 @@ st.pyplot(fig)
 st.subheader('Sentiment vs. Return Correlation for This Announcement')
 
 sentiment_cols = [col for col in df.columns if 'sentiment' in col or 'Score' in col]
-corr_subset = filtered_df[sentiment_cols + return_cols]
+corr_subset = filtered_df[sentiment_cols + return_cols].dropna()
 
 if corr_subset.shape[0] < 2:
     st.info('Not enough data for correlation calculation.')
+    st.write(f"Only {corr_subset.shape[0]} row(s) available after dropna.")
 else:
     event_corr = corr_subset.corr().loc[sentiment_cols, return_cols]
 
@@ -105,3 +106,4 @@ else:
     plt.xticks(rotation=45)
     plt.tight_layout()
     st.pyplot(fig_corr)
+    
