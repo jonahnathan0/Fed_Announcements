@@ -12,15 +12,6 @@ page = st.sidebar.radio('Go to', ['Home', 'Report'])
 
 # ---------- HOME DASHBOARD ----------
 if page == 'Home':
-    st.title('Market Reactions to FED Announcements')
-
-    df = pd.read_csv('raw_data/final_dataset.csv')
-    
-    sentiment_cols = [col for col in df.columns if 'Score' in col or 'sentiment' in col]
-    return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
-    index_options = sorted(df['ticker'].dropna().unique())
-    doc_type_options = df['document_type'].dropna().unique()
-    
     # ---------- TITLE & INTRO ----------
     st.title('Market Reactions to FED Announcements')
     
@@ -29,6 +20,13 @@ if page == 'Home':
     using various sentiment analysis methods. 
     Use the dropdowns to explore different relationships.
     ''')
+
+    # ---------- CONFIG & DATA ----------
+    df = pd.read_csv('raw_data/final_dataset.csv')
+    sentiment_cols = [col for col in df.columns if 'Score' in col or 'sentiment' in col]
+    return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
+    index_options = sorted(df['ticker'].dropna().unique())
+    doc_type_options = df['document_type'].dropna().unique()
     
     # ---------- SIDEBAR FILTERS ----------
     st.sidebar.header('Filters')
