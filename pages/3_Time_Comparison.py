@@ -52,6 +52,19 @@ st.markdown("""
             font-weight: bold;
             color: #ffffff !important;
         }
+
+        /* Always show dropdown arrow on multiselect */
+        div[data-baseweb="select"] > div {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+        }
+
+        /* Ensure space for arrow in multiselect input */
+        div[data-baseweb="select"] > div > div {
+            padding-right: 2rem !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
