@@ -3,6 +3,6 @@ headless = true
 
 [runner]
 magicEnabled = true
-script = "Overview.py"
+script = "FedAnnouncementsApp.py"
 
 
