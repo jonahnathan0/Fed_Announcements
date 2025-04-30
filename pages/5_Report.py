@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title='Market Returns', layout='wide')
 st.title('Report: Market Reactions to Central Bank Communications')
 
-# ------------------ CUSTOM CSS STYLE ------------------
+# ------------------ CUSTOM STYLE ------------------
 st.markdown("""
     <style>
         /* Sidebar background */
