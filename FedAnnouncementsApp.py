@@ -89,6 +89,24 @@ ax.set_title(f"Correlation: {title_label} - Sentiment vs. Market Returns", fonts
 plt.xticks(rotation=45)
 st.pyplot(fig)
 
+# ---------- AVERAGE RETURN LINE CHART ----------
+st.subheader("Average Return by Day Relative to FOMC Announcement")
+
+# Calculate average return across all selected events and indices
+daily_avg_returns = filtered_data[return_cols].mean().reset_index()
+daily_avg_returns.columns = ['Day', 'Avg_Return']
+daily_avg_returns['Day'] = daily_avg_returns['Day'].str.replace('T', '').astype(int)
+
+fig_line, ax_line = plt.subplots(figsize=(12, 5))
+sns.lineplot(data=daily_avg_returns, x='Day', y='Avg_Return', ax=ax_line)
+ax_line.axvline(0, color='red', linestyle='--')
+ax_line.set_title("Average Market Return Relative to Announcement Day")
+ax_line.set_xlabel("Days from FOMC Announcement")
+ax_line.set_ylabel("Average Return")
+ax_line.grid(True)
+plt.tight_layout()
+st.pyplot(fig_line)
+
 # ---------- CONCLUSIONS ----------
 st.subheader("Conclusions")
 st.markdown("""
