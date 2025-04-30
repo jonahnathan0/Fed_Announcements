@@ -26,10 +26,19 @@ Use the dropdowns to explore different relationships.
 # ---------- SIDEBAR FILTERS ----------
 st.sidebar.header("Filters")
 
-selected_indices = st.sidebar.multiselect(
+all_option = "Select All"
+index_options_with_all = [all_option] + index_options
+
+selected_indices_raw = st.sidebar.multiselect(
     "Select Market Index (multiple allowed)", 
-    options=index_options
+    options=index_options_with_all,
+    default=[]
 )
+
+if all_option in selected_indices_raw:
+    selected_indices = index_options
+else:
+    selected_indices = selected_indices_raw
 
 selected_doc_type = st.sidebar.multiselect(
     "Select Document Type(s)",
