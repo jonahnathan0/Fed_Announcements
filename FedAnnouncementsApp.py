@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # ---------- REAL DATA ----------
 st.set_page_config(page_title="FED Sentiment Dashboard", layout="wide")
-df = pd.read_csv("rawdata/final_dataset.csv")
+df = pd.read_csv("raw_data/final_dataset.csv")
 
 sentiment_cols = [col for col in df.columns if 'Score' in col or 'sentiment' in col]
 return_cols = [col for col in df.columns if col.startswith('T') and col[1:].lstrip('+-').isdigit()]
