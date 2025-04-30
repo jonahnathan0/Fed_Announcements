@@ -167,18 +167,19 @@ elif page == 'Report':
     st.markdown("""
     ### Key Takeaways
 
-    - **Statement vs Intermeeting** days have clearly different average return profiles.
-    - **FG and EC sentiment** have the most consistent positive correlation with next-day returns.
-    - LLM-generated views may offer incremental predictive signal but show low correlation.
+    - FILL IN INFO
+    - FILL IN INFO
+    - FILL IN INFO
 
     ### Summary Metrics
-
-    - Returns: T-10 to T+10
-    - Sentiment: ML scores, LLM views, topic-specific sentiment
-    - Coverage: All major US indices and FOMC communications
+    
+    - FILL IN INFO
+    - FILL IN INFO
+    - FILL IN INFO
 
     ### Recommendation
 
-    - Focus future modeling on FG sentiment and ChronoBERT score near T0 and T+1
-    - Consider isolating intermeeting announcements for strategy testing
-    """)
+    - FILL IN INFO
+    - FILL IN INFO
+    - FILL IN INFO
+
