@@ -14,16 +14,6 @@ return_cols = [col for col in df.columns if col.startswith('T') and col[1:].repl
 index_options = sorted(df['ticker'].dropna().unique())
 doc_type_options = df['document_type'].dropna().unique()
 
-# ---------- STREAMLIT UI ----------
-st.title('Market Reactions to FED Announcements')
-
-st.markdown("""
-This app shows how financial markets react to different types of Federal Reserve communications
-using various sentiment analysis methods.
-
-Use the dropdowns to explore different relationships.
-""")
-
 # ---------- SIDEBAR FILTERS ----------
 st.sidebar.header("Filters")
 
@@ -32,13 +22,35 @@ select_all_indices = st.sidebar.checkbox("Select All Indices", value=True)
 if select_all_indices:
     selected_indices = index_options
 else:
-    selected_indices = st.sidebar.multiselect("Select Market Index (multiple allowed)", options=index_options, default=index_options[:1])
+    selected_indices = st.sidebar.multiselect(
+        "Select Market Index (multiple allowed)", 
+        options=index_options, 
+        default=index_options[:1]
+    )
 
+# Document type multiselect
 selected_doc_type = st.sidebar.multiselect(
     "Select Document Type(s)",
     options=doc_type_options,
     default=doc_type_options
 )
+
+# ---------- SPLASH SCREEN ----------
+show_splash = select_all_indices or len(selected_indices) == 0
+
+st.title("Market Reactions to FED Announcements")
+
+st.markdown("""
+This app shows how financial markets react to different types of Federal Reserve communications
+using various sentiment analysis methods.
+
+Use the dropdowns to explore different relationships.
+""")
+
+if show_splash:
+    st.image("assets/Banking-December-FOMC-announcement-live-blog.jpg", use_column_width=True)
+    st.markdown("Use the filters on the left to get started.")
+    st.stop()
 
 # ---------- FILTER DATA ----------
 filtered_data = df[
