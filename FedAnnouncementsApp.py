@@ -8,9 +8,11 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="FED Sentiment Dashboard", layout="wide")
 df = pd.read_csv("raw_data/final_dataset.csv")
 
+# Identify columns
 sentiment_cols = [col for col in df.columns if 'Score' in col or 'sentiment' in col]
-return_cols = [col for col in df.columns if col.startswith('T') and col[1:].lstrip('+-').isdigit()]
+return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
 index_options = sorted(df['ticker'].dropna().unique())
+doc_type_options = df['document_type'].dropna().unique()
 
 # ---------- STREAMLIT UI ----------
 st.title("📈 Market Reactions to Central Bank Communications")
@@ -25,18 +27,18 @@ Use the dropdowns to explore different relationships.
 # ---------- SIDEBAR FILTERS ----------
 st.sidebar.header("Filters")
 
-# Index multi-select with Select All
+# Select All Indices + Multiselect
 select_all_indices = st.sidebar.checkbox("Select All Indices", value=True)
 if select_all_indices:
     selected_indices = index_options
 else:
-    selected_indices = st.sidebar.multiselect("Select Market Index (you can select multiple)", index_options)
+    selected_indices = st.sidebar.multiselect("Select Market Index (multiple allowed)", options=index_options, default=index_options[:1])
 
-# Document type multi-select
+# Document type multiselect
 selected_doc_type = st.sidebar.multiselect(
     "Select Document Type(s)",
-    df['document_type'].dropna().unique(),
-    default=df['document_type'].dropna().unique()
+    options=doc_type_options,
+    default=doc_type_options
 )
 
 # ---------- FILTER DATA ----------
@@ -46,38 +48,29 @@ filtered_data = df[
 ]
 
 # ---------- CORRELATION HEATMAP ----------
-st.subheader("Correlation between Sentiment and Returns")
+st.subheader("Correlation Heatmap: Sentiment vs. Market Returns")
 
-corr_cols = sentiment_cols + return_cols
-corr = filtered_data[corr_cols].corr().loc[sentiment_cols, return_cols]
-st.dataframe(corr.style.background_gradient(cmap='coolwarm', axis=None))
+# Calculate correlation
+corr_matrix = filtered_data[sentiment_cols + return_cols].corr()
+sentiment_vs_returns = corr_matrix.loc[sentiment_cols, return_cols]
 
-# ---------- SCATTERPLOT ----------
-st.subheader("Scatterplot: Returns vs Sentiment")
-
-selected_day = st.slider("Select Day Relative to Announcement", -10, 10, 0)
-ret_col = f'T{selected_day}' if selected_day != 0 else 'T0'
-
-fig, ax = plt.subplots()
-sns.scatterplot(data=filtered_data, x=selected_sentiment, y=ret_col, hue='document_type', ax=ax)
-
-title_index_label = (
-    "Multiple Indices" if len(selected_indices) > 1 else selected_indices[0]
+# Plot heatmap
+fig, ax = plt.subplots(figsize=(16, 8))
+sns.heatmap(
+    sentiment_vs_returns,
+    annot=True,
+    fmt=".3f",
+    cmap="coolwarm",
+    center=0,
+    linewidths=0.3,
+    linecolor='black',
+    cbar=True,
+    ax=ax
 )
-plt.title(f'{ret_col} vs {selected_sentiment} for {title_index_label}')
-plt.xlabel(selected_sentiment)
-plt.ylabel(f'{title_index_label} Return (Day {selected_day})')
+title_label = "All Indices" if len(selected_indices) == len(index_options) else ", ".join(selected_indices)
+ax.set_title(f"Correlation: {title_label} - Sentiment vs. Market Returns", fontsize=14)
+plt.xticks(rotation=45)
 st.pyplot(fig)
-
-# ---------- BOXPLOT ----------
-st.subheader("Boxplot: Returns by Document Type")
-
-fig2, ax2 = plt.subplots()
-sns.boxplot(data=filtered_data, x='document_type', y=ret_col)
-plt.title(f'{ret_col} Distribution by Document Type')
-plt.xlabel("Document Type")
-plt.ylabel(f'{title_index_label} Return (Day {selected_day})')
-st.pyplot(fig2)
 
 # ---------- CONCLUSIONS SECTION ----------
 st.subheader("Conclusions")
