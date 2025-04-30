@@ -94,7 +94,9 @@ st.subheader('Average Return by Day Relative to FOMC Announcement')
 
 allowed_types = {'statement', 'intermeeting'}
 
-if selected_doc_type and set(selected_doc_type).issubset(allowed_types):
+doc_type_check = [doc for doc in selected_doc_type if doc in allowed_types]
+
+if selected_doc_type and set(selected_doc_type) == set(doc_type_check):
     melted = filtered_data.melt(
         id_vars=['ticker'],
         value_vars=return_cols,
