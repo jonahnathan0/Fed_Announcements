@@ -15,10 +15,10 @@ index_options = sorted(df['ticker'].dropna().unique())
 doc_type_options = df['document_type'].dropna().unique()
 
 # ---------- STREAMLIT UI ----------
-st.title("📈 Market Reactions to Central Bank Communications")
+st.title('Market Reactions to FED Announcements')
 
 st.markdown("""
-Welcome to our dashboard! This app visualizes how financial markets react to different types of Federal Reserve communications
+This app shows how financial markets react to different types of Federal Reserve communications
 using various sentiment analysis methods.
 
 Use the dropdowns to explore different relationships.
@@ -34,7 +34,6 @@ if select_all_indices:
 else:
     selected_indices = st.sidebar.multiselect("Select Market Index (multiple allowed)", options=index_options, default=index_options[:1])
 
-# Document type multiselect
 selected_doc_type = st.sidebar.multiselect(
     "Select Document Type(s)",
     options=doc_type_options,
@@ -50,11 +49,9 @@ filtered_data = df[
 # ---------- CORRELATION HEATMAP ----------
 st.subheader("Correlation Heatmap: Sentiment vs. Market Returns")
 
-# Calculate correlation
 corr_matrix = filtered_data[sentiment_cols + return_cols].corr()
 sentiment_vs_returns = corr_matrix.loc[sentiment_cols, return_cols]
 
-# Plot heatmap
 fig, ax = plt.subplots(figsize=(16, 8))
 sns.heatmap(
     sentiment_vs_returns,
