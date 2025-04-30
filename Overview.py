@@ -17,26 +17,28 @@ st.markdown("""
             background-color: #1f2937; /* Dark blue-gray */
         }
 
-        /* Sidebar text */
+        /* Force all sidebar text to white */
         [data-testid="stSidebar"] * {
-            color: #ffffff !important;  /* Force white text in sidebar */
+            color: #ffffff !important;
+            font-family: 'Lato', sans-serif !important;
         }
 
-        /* Set universal font */
-        html, body, [class*="css"]  {
-            font-family: 'Lato', sans-serif;
-            color: #1f2937;
+        /* Universal font and color for entire app */
+        html, body, [class*="css"] {
+            font-family: 'Lato', sans-serif !important;
+            color: #1f2937 !important;
         }
 
-        /* Titles (main header, section headers) */
-        h1, h2, h3 {
-            font-family: 'Lato', sans-serif;
-            color: #0f172a;
+        /* All headers same font + weight */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lato', sans-serif !important;
+            font-weight: 700 !important;
+            color: #1f2937 !important;
         }
 
-        /* Links in sidebar and elsewhere */
+        /* Links color */
         a {
-            color: #60a5fa !important;
+            color: #2563eb !important;
             text-decoration: none;
         }
 
@@ -47,12 +49,13 @@ st.markdown("""
             border-radius: 6px;
             padding: 0.4em 1em;
             font-weight: bold;
+            font-family: 'Lato', sans-serif !important;
         }
 
         /* Dropdown label */
         .stSelectbox label {
             font-weight: bold;
-            color: #ffffff;
+            color: #ffffff !important;
         }
     </style>
 """, unsafe_allow_html=True)
