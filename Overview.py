@@ -21,7 +21,7 @@ st.title('Market Reactions to Central Bank Communications')
 # Display image at the top
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', width=500)
+    st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', width=800)
 
 
 st.markdown('''
