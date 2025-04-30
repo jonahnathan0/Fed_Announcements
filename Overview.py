@@ -12,51 +12,46 @@ st.set_page_config(
 # ------------------ CUSTOM CSS STYLE ------------------
 st.markdown("""
     <style>
-        /* Set global Calibri font across all elements */
-        html, body, [class*="css"], div, p, span, label, input, textarea, button {
-            font-family: Calibri !important;
-            color: #1f2937 !important;
-        }
-
         /* Sidebar background */
         [data-testid="stSidebar"] {
             background-color: #1f2937;
         }
 
-        /* Sidebar text */
+        /* Sidebar text color only (keep default font) */
         [data-testid="stSidebar"] * {
             color: #ffffff !important;
-            font-family: Calibri !important;
         }
 
-        /* Headers */
+        /* Keep default font across body */
+        html, body, [class*="css"] {
+            color: #1f2937 !important;
+        }
+
+        /* Header styling (no font override) */
         h1, h2, h3, h4, h5, h6 {
-            font-family: Calibri !important;
             font-weight: 700 !important;
             color: #1f2937 !important;
         }
 
-        /* Links */
+        /* Link color */
         a {
             color: #2563eb !important;
             text-decoration: none;
         }
 
-        /* Buttons */
+        /* Button styling (no font override) */
         .stButton>button {
             background-color: #2563eb;
             color: white;
             border-radius: 6px;
             padding: 0.4em 1em;
             font-weight: bold;
-            font-family: Calibri !important;
         }
 
         /* Dropdown label */
         .stSelectbox label {
             font-weight: bold;
             color: #ffffff !important;
-            font-family: Calibri !important;
         }
     </style>
 """, unsafe_allow_html=True)
