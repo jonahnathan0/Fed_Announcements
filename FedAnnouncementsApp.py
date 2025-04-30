@@ -164,7 +164,7 @@ if page == 'Home':
 elif page == 'Report':
     st.title('📄 Executive Summary: FED Sentiment and Market Reactions')
 
-    st.markdown("""
+    st.markdown('''
     ### Key Takeaways
 
     - FILL IN INFO
@@ -183,3 +183,4 @@ elif page == 'Report':
     - FILL IN INFO
     - FILL IN INFO
 
+'''
