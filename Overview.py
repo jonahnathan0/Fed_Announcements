@@ -2,6 +2,53 @@ import streamlit as st
 from streamlit.components.v1 import html
 import pandas as pd
 
+# ------------------ CUSTOM CSS STYLE ------------------
+st.markdown("""
+    <style>
+        /* Sidebar background */
+        [data-testid="stSidebar"] {
+            background-color: #1f2937; /* Dark blue-gray */
+        }
+
+        /* Sidebar text */
+        [data-testid="stSidebar"] .css-1v3fvcr {
+            color: #ffffff;
+        }
+
+        /* Set universal font */
+        html, body, [class*="css"]  {
+            font-family: 'Lato', sans-serif;
+            color: #1f2937;
+        }
+
+        /* Titles (main header, section headers) */
+        h1, h2, h3 {
+            font-family: 'Lato', sans-serif;
+            color: #0f172a;
+        }
+
+        /* Links in sidebar */
+        a {
+            color: #60a5fa !important;
+            text-decoration: none;
+        }
+
+        /* Button styling */
+        .stButton>button {
+            background-color: #2563eb;  /* Blue */
+            color: white;
+            border-radius: 6px;
+            padding: 0.4em 1em;
+            font-weight: bold;
+        }
+
+        /* Dropdown label */
+        .stSelectbox label {
+            font-weight: bold;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # ------------------ PAGE CONFIG ------------------
 st.set_page_config(
     page_title='FED Sentiment Dashboard',
@@ -18,11 +65,10 @@ with st.sidebar:
 # ------------------ OVERVIEW ------------------
 st.title('Market Reactions to Central Bank Communications')
 
-# Display image at the top
+# Display image at the top and center it
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', width=800)
-
 
 st.markdown('''
 ## Project Context
