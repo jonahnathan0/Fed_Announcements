@@ -1,21 +1,21 @@
 import streamlit as st
+import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-from utils import load_data
 
 # ---------- CONFIG ----------
 st.set_page_config(page_title='Market Returns', layout='wide')
 st.title('📊 Market Returns by Index and Document Type')
 
 # ---------- LOAD DATA ----------
-df = load_data()
+df = pd.read_csv('raw_data/final_dataset.csv')
 sentiment_cols = [col for col in df.columns if 'Score' in col or 'sentiment' in col]
 return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
 index_options = sorted(df['ticker'].dropna().unique())
 doc_type_options = df['document_type'].dropna().unique()
 
-# ---------- SIDEBAR FILTERS ----------
+# ---------- FILTERS ----------
 st.sidebar.header('Filters')
 
 all_option = 'Select All'
@@ -47,7 +47,7 @@ if not selected_indices or not selected_doc_type:
     st.warning('Please select at least one index and one document type.')
     st.stop()
 
-# ---------- FILTERED DATA ----------
+# ---------- FILTER DATA ----------
 filtered_data = df[
     (df['ticker'].isin(selected_indices)) &
     (df['document_type'].isin(selected_doc_type))

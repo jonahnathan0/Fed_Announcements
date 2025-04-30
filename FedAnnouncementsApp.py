@@ -2,12 +2,6 @@ import streamlit as st
 from streamlit.components.v1 import html
 import pandas as pd
 
-# ------------------ DATA LOAD ------------------
-@st.cache_data
-def load_data(path='raw_data/final_dataset.csv'):
-    df = pd.read_csv(path)
-    return df
-
 # ------------------ PAGE CONFIG ------------------
 st.set_page_config(
     page_title='FED Sentiment Dashboard',
