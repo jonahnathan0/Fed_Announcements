@@ -19,7 +19,7 @@ with st.sidebar:
 st.title('Market Reactions to Central Bank Communications')
 
 # Display image at the top
-st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', use_container_width=True)
+st.image('assets/Banking-December-FOMC-announcement-live-blog.jpg', width=500)
 
 st.markdown('''
 ## Project Context
