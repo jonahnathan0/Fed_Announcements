@@ -93,7 +93,7 @@ st.pyplot(fig)
 st.subheader('Average Return by Day Relative to FOMC Announcement')
 
 allowed_types = {'statement', 'intermeeting'}
-s)
+
 if selected_doc_type and set(selected_doc_type).issubset(allowed_types):
     melted = filtered_data.melt(
         id_vars=['ticker'],
