@@ -17,30 +17,28 @@ st.markdown("""
             background-color: #1f2937;
         }
 
-        /* Sidebar text color only (keep default font) */
+        /* Sidebar text color only */
         [data-testid="stSidebar"] * {
             color: #ffffff !important;
         }
 
-        /* Base light theme */
-        html, body, [class*="css"] {
-            color: #1f2937 !important;
+        /* Force main text color globally */
+        .block-container, .main, .element-container, body, html {
+            color: #111111 !important;
         }
 
-        /* Override for dark mode */
-        @media (prefers-color-scheme: dark) {
-            html, body, [class*="css"] {
-                color: #ffffff !important;
-            }
-            h1, h2, h3, h4, h5, h6 {
-                color: #ffffff !important;
-            }
+        /* Override for dark mode manually (Streamlit doesn't respect media queries well) */
+        html[data-theme="dark"] .block-container,
+        html[data-theme="dark"] .main,
+        html[data-theme="dark"] .element-container,
+        html[data-theme="dark"] body {
+            color: #ffffff !important;
         }
 
-        /* Header styling (light mode default) */
+        /* Headers */
         h1, h2, h3, h4, h5, h6 {
             font-weight: 700 !important;
-            color: #1f2937 !important;
+            color: inherit !important;
         }
 
         /* Link color */
@@ -49,7 +47,7 @@ st.markdown("""
             text-decoration: none;
         }
 
-        /* Button styling (no font override) */
+        /* Button styling */
         .stButton>button {
             background-color: #2563eb;
             color: white;
