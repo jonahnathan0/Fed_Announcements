@@ -59,10 +59,10 @@ st.markdown("""
 df = pd.read_csv('raw_data/final_dataset.csv')
 df['announcement_date'] = pd.to_datetime(df['announcement_date'])
 
-return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
+# ---------- SETUP ----------
 tickers = sorted(df['ticker'].dropna().unique())
 
-# ---------- SIDEBAR: Ticker Selection ----------
+# ---------- SIDEBAR: Ticker Filter ----------
 st.sidebar.header('Select Market Index')
 all_option = 'Select All'
 ticker_options = [all_option] + tickers
@@ -76,52 +76,27 @@ selected_tickers = st.sidebar.multiselect(
 if all_option in selected_tickers or not selected_tickers:
     selected_tickers = tickers
 
-# ---------- SLIDER: Announcement Date ----------
-date_options = sorted(df['announcement_date'].dropna().unique())
-selected_date = st.select_slider(
-    'Select an FOMC Announcement Date:',
-    options=list(date_options),
-    value=date_options[0],
-    format_func=lambda x: pd.to_datetime(x).strftime('%Y-%m-%d')
-)
-
 # ---------- FILTER DATA ----------
-filtered_df = df[(df['announcement_date'] == selected_date) & (df['ticker'].isin(selected_tickers))]
+filtered_df = df[df['ticker'].isin(selected_tickers)]
 
 if filtered_df.empty:
     st.warning("No data available for the selected filters.")
     st.stop()
 
-# ---------- GET DOCUMENT TYPE ----------
-announcement_type = filtered_df['document_type'].iloc[0].lower()
-sentiment_column = 'statement_sentiment' if announcement_type == 'statement' else 'intermeeting_sentiment'
-
-# ---------- SCATTER PLOT ----------
-st.subheader(f"{announcement_type.title()} Sentiment vs Market Returns")
-
-fig, ax = plt.subplots(figsize=(14, 10))
-
-for ret_col in return_cols:
-    sns.scatterplot(
-        data=filtered_df,
-        x=ret_col,
-        y=sentiment_column,
-        label=ret_col,
-        s=60,
-        ax=ax
-    )
-
-ax.axhline(0, color='gray', linestyle='--', linewidth=1)
-ax.axvline(0, color='gray', linestyle='--', linewidth=1)
-ax.set_xlabel('Market Return')
-ax.set_ylabel('GPT Sentiment Score')
-ax.set_title(f'{announcement_type.title()} on {selected_date.date()} — Market Returns')
-ax.legend(
-    title='Return Period',
-    bbox_to_anchor=(1.05, 1),
-    loc='upper left',
-    borderaxespad=0,
-    frameon=True
+# ---------- SCATTERPLOT ----------
+fig, ax = plt.subplots(figsize=(12, 6))
+sns.scatterplot(
+    data=filtered_df,
+    x='announcement_date',
+    y='statement_sentiment',
+    hue='ticker',
+    s=60,
+    ax=ax
 )
+
+ax.set_title('GPT Statement Sentiment Over Time')
+ax.set_xlabel('Announcement Date')
+ax.set_ylabel('Statement Sentiment Score')
 ax.grid(True)
+ax.legend(title='Ticker', bbox_to_anchor=(1.05, 1), loc='upper left')w
 st.pyplot(fig)
