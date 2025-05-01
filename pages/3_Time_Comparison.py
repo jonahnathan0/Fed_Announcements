@@ -139,3 +139,17 @@ ax.grid(True)
 plt.xticks(rotation=45)
 plt.tight_layout()
 st.pyplot(fig)
+
+# ---------- DISPLAY SENTIMENT SCORES ----------
+st.subheader('Sentiment Scores for Selected Announcement')
+
+sentiment_data = filtered_df[sentiment_cols]
+
+if sentiment_data.shape[0] > 1:
+    sentiment_summary = sentiment_data.mean().to_frame(name='Average Sentiment Score')
+else:
+    sentiment_summary = sentiment_data.T
+    sentiment_summary.columns = ['Sentiment Score']
+
+sentiment_summary = sentiment_summary.round(3)
+st.dataframe(sentiment_summary)
