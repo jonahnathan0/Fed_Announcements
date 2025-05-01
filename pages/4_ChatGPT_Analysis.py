@@ -99,7 +99,7 @@ sentiment_column = 'statement_sentiment' if announcement_type == 'statement' els
 # ---------- SCATTER PLOT ----------
 st.subheader(f"{announcement_type.title()} Sentiment vs Market Returns")
 
-fig, ax = plt.subplots(figsize=(14, 8))
+fig, ax = plt.subplots(figsize=(14, 10))
 
 for ret_col in return_cols:
     sns.scatterplot(
@@ -107,6 +107,7 @@ for ret_col in return_cols:
         x=sentiment_column,
         y=ret_col,
         label=ret_col,
+        s=60,
         ax=ax
     )
 
