@@ -98,7 +98,6 @@ if filtered_df.empty:
 
 # ---------- SCATTERPLOT OF SENTIMENT OVER TIME ----------
 st.subheader("GPT Statement Sentiment Over Time")
-
 fig = px.scatter(
     filtered_df,
     x='announcement_date',
@@ -109,12 +108,20 @@ fig = px.scatter(
 )
 st.plotly_chart(fig)
 
+# ---------- DROPDOWN TO SELECT AN ANNOUNCEMENT ----------
+st.subheader("Explore Correlation for a Specific Announcement")
+date_options = filtered_df['announcement_date'].dropna().sort_values().unique()
+selected_date = st.selectbox("Select an FOMC Announcement Date", date_options)
+
+df_selected = filtered_df[filtered_df['announcement_date'].dt.date == selected_date.date()]
+sentiment_cols = ['statement_sentiment', 'intermeeting_sentiment']
+numeric_cols = sentiment_cols + return_cols
+
 if df_selected.shape[0] < 2:
     st.info("Only one row available — showing market returns instead of correlation.")
-
     row = df_selected.iloc[0]
     sentiment_value = row['statement_sentiment']
-    
+
     returns = row[return_cols].astype(float)
 
     def sort_key(col):
@@ -131,3 +138,12 @@ if df_selected.shape[0] < 2:
     ax.set_ylabel("Market Return")
     ax.set_xlabel("Day")
     st.pyplot(fig1)
+else:
+    st.write(f"Correlation between sentiment and returns for {selected_date.date()}")
+    corr_matrix = df_selected[numeric_cols].corr()
+    sub_corr = corr_matrix.loc[sentiment_cols, return_cols]
+
+    fig2, ax = plt.subplots(figsize=(12, 3))
+    sns.heatmap(sub_corr, annot=True, cmap='coolwarm', center=0, fmt=".2f", ax=ax)
+    ax.set_title(f'Correlation Matrix — {selected_date.date()}')
+    st.pyplot(fig2)
