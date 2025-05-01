@@ -143,21 +143,7 @@ st.pyplot(fig)
 # ---------- DISPLAY SENTIMENT SCORES ----------
 st.subheader('Sentiment Scores for Selected Announcement')
 
-sentiment_data = filtered_df[sentiment_cols]
+summary = filtered_df[sentiment_cols].mean().to_frame('Sentiment Score') if len(filtered_df) > 1 else filtered_df[sentiment_cols].T.rename(columns={filtered_df.index[0]: 'Sentiment Score'})
+summary = summary.round(3)
 
-if sentiment_data.shape[0] > 1:
-    sentiment_summary = sentiment_data.mean().to_frame(name='Sentiment Score')
-else:
-    sentiment_summary = sentiment_data.T
-    sentiment_summary.columns = ['Sentiment Score']
-
-sentiment_summary = sentiment_summary.round(3)
-
-styled_df = sentiment_summary.style\
-    .format(precision=3)\
-    .background_gradient(cmap='Blues', vmin=0, vmax=1)\
-    .set_properties(**{'text-align': 'center'})
-
-st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
-st.dataframe(styled_df, use_container_width=False)
-st.markdown("</div>", unsafe_allow_html=True)
+st.dataframe(summary, use_container_width=False)
