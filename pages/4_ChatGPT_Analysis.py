@@ -115,19 +115,19 @@ date_options = filtered_df['announcement_date'].dropna().sort_values().unique()
 selected_date = st.selectbox("Select an FOMC Announcement Date", date_options)
 
 # ---------- CORRELATION MATRIX FOR SELECTED DATE ----------
-df_selected = filtered_df[filtered_df['announcement_date'] == selected_date]
+df_selected = filtered_df[filtered_df['announcement_date'].dt.date == selected_date.date()]
+
+sentiment_cols = ['statement_sentiment', 'intermeeting_sentiment']
+numeric_cols = sentiment_cols + return_cols
 
 if df_selected.shape[0] < 2:
-    st.info("Not enough data on this date to compute correlation. Try another.")
+    st.info("Only one row available — showing sentiment and return values instead of correlation.")
+    st.dataframe(df_selected[['announcement_date', 'ticker'] + numeric_cols])
 else:
     st.write(f"Correlation between sentiment and returns for {selected_date.date()}")
 
-    sentiment_cols = ['statement_sentiment', 'intermeeting_sentiment']
-    numeric_cols = sentiment_cols + return_cols
-
     corr_matrix = df_selected[numeric_cols].corr()
 
-    # Only show sentiment rows vs return columns
     sub_corr = corr_matrix.loc[sentiment_cols, return_cols]
 
     fig2, ax = plt.subplots(figsize=(12, 3))
