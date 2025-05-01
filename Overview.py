@@ -81,15 +81,11 @@ with col2:
 st.markdown('''
 ## Project Context
 
-FILL IN
+Monetary policy decisions made from central banks, specifically the US Federal Reserve (Fed), are some of the most closely watched events in financial markets. Whether it’s a change in interest rates, commentary on economic conditions, or possibly even forward guidance on future tightening or easing of rates, the language used by the Federal Open Market Committee (FOMC) can influence billions of dollars in assets.
 
 ## Introduction
 
-FILL IN
-
-## Overview
-
-FILL IN
+Our project investigated how financial markets respond to Fed communications through a sentiment analysis of FOMC announcements. Since Fed communications can significantly impact financial markets, the sentiment from these announcements can provide valuable insights to market participants. Using various language dictionaries to monitor sentiment of the announcements, we were able to compare that sentiment to real returns of stock indices at the time of the announcements. Also, by using OpenAI API with GPT-4, we created a prompt that outputted the bearishness or bullishness of the announcement.
 
 ---
 ''')
