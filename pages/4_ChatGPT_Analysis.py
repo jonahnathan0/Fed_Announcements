@@ -117,17 +117,20 @@ selected_date = st.selectbox("Select an FOMC Announcement Date", date_options)
 # ---------- CORRELATION MATRIX FOR SELECTED DATE ----------
 df_selected = filtered_df[filtered_df['announcement_date'] == selected_date]
 
-if df_selected.empty:
-    st.info("No data available for this statement.")
+if df_selected.shape[0] < 2:
+    st.info("Not enough data on this date to compute correlation. Try another.")
 else:
     st.write(f"Correlation between sentiment and returns for {selected_date.date()}")
 
-    # Only use relevant numeric columns
-    numeric_cols = ['statement_sentiment', 'intermeeting_sentiment'] + return_cols
-    corr_df = df_selected[numeric_cols].corr()
+    sentiment_cols = ['statement_sentiment', 'intermeeting_sentiment']
+    numeric_cols = sentiment_cols + return_cols
 
-    # Plot correlation matrix
-    fig2, ax = plt.subplots(figsize=(10, 6))
-    sns.heatmap(corr_df, annot=True, cmap='coolwarm', center=0, fmt=".2f", ax=ax)
+    corr_matrix = df_selected[numeric_cols].corr()
+
+    # Only show sentiment rows vs return columns
+    sub_corr = corr_matrix.loc[sentiment_cols, return_cols]
+
+    fig2, ax = plt.subplots(figsize=(12, 3))
+    sns.heatmap(sub_corr, annot=True, cmap='coolwarm', center=0, fmt=".2f", ax=ax)
     ax.set_title(f'Correlation Matrix — {selected_date.date()}')
     st.pyplot(fig2)
