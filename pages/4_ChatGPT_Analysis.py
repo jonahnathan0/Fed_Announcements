@@ -55,6 +55,36 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# ---------- LOAD DATA ----------
+df = pd.read_csv('raw_data/final_dataset.csv')
+df['announcement_date'] = pd.to_datetime(df['announcement_date'])
+
+return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
+tickers = sorted(df['ticker'].dropna().unique())
+
+# ---------- SIDEBAR: Ticker Selection ----------
+st.sidebar.header('Select Market Index')
+all_option = 'Select All'
+ticker_options = [all_option] + tickers
+
+selected_tickers = st.sidebar.multiselect(
+    'Choose tickers to include:',
+    options=ticker_options,
+    default=tickers[:1]
+)
+
+if all_option in selected_tickers or not selected_tickers:
+    selected_tickers = tickers
+
+# ---------- SLIDER: Announcement Date ----------
+date_options = sorted(df['announcement_date'].dropna().unique())
+selected_date = st.select_slider(
+    'Select an FOMC Announcement Date:',
+    options=list(date_options),
+    value=date_options[0],
+    format_func=lambda x: pd.to_datetime(x).strftime('%Y-%m-%d')
+)
+
 # ---------- FILTER DATA ----------
 filtered_df = df[(df['announcement_date'] == selected_date) & (df['ticker'].isin(selected_tickers))]
 
