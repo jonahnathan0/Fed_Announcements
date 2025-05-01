@@ -76,74 +76,51 @@ df['announcement_date'] = pd.to_datetime(df['announcement_date'])
 return_cols = [col for col in df.columns if col.startswith('T') and col[1:].replace('+', '').replace('-', '').isdigit()]
 tickers = sorted(df['ticker'].dropna().unique())
 
-# ---------- SIDEBAR FILTER ----------
-st.sidebar.header('Select Market Index')
-all_option = 'Select All'
-ticker_options = [all_option] + tickers
+# ---------- SENTIMENT BINNING ----------
+def sentiment_category(score):
+    if score > 0.2:
+        return 'Bullish'
+    elif score < -0.2:
+        return 'Bearish'
+    else:
+        return 'Neutral'
 
-selected_tickers = st.sidebar.multiselect(
-    'Choose tickers to include:',
-    options=ticker_options,
-    default=tickers[:1]
+df['sentiment_bin'] = df['statement_sentiment'].apply(sentiment_category)
+
+# ---------- MELT TO LONG FORMAT ----------
+df_melted = df.melt(
+    id_vars=['announcement_date', 'sentiment_bin'],
+    value_vars=return_cols,
+    var_name='Day',
+    value_name='Return'
 )
 
-if all_option in selected_tickers or not selected_tickers:
-    selected_tickers = tickers
+# ---------- SORT DAY CATEGORIES ----------
+def sort_key(day):
+    if day == 'T0':
+        return 0
+    sign = -1 if '-' in day else 1
+    return sign * int(day.replace('T', '').replace('+', '').replace('-', ''))
 
-filtered_df = df[df['ticker'].isin(selected_tickers)]
-
-if filtered_df.empty:
-    st.warning("No data available for the selected filters.")
-    st.stop()
-
-# ---------- SCATTERPLOT OF SENTIMENT OVER TIME ----------
-st.subheader("GPT Statement Sentiment Over Time")
-fig = px.scatter(
-    filtered_df,
-    x='announcement_date',
-    y='statement_sentiment',
-    color='ticker',
-    title='GPT Statement Sentiment Over Time',
-    hover_data=['ticker', 'statement_sentiment']
+df_melted['Day'] = pd.Categorical(
+    df_melted['Day'],
+    categories=sorted(return_cols, key=sort_key),
+    ordered=True
 )
-st.plotly_chart(fig)
 
-# ---------- DROPDOWN TO SELECT AN ANNOUNCEMENT ----------
-st.subheader("Explore Correlation for a Specific Announcement")
-date_options = filtered_df['announcement_date'].dropna().sort_values().unique()
-selected_date = st.selectbox("Select an FOMC Announcement Date", date_options)
+# ---------- COMPUTE AVERAGE RETURNS ----------
+grouped_returns = df_melted.groupby(['Day', 'sentiment_bin'])['Return'].mean().reset_index()
 
-df_selected = filtered_df[filtered_df['announcement_date'].dt.date == selected_date.date()]
-sentiment_cols = ['statement_sentiment', 'intermeeting_sentiment']
-numeric_cols = sentiment_cols + return_cols
+# ---------- PLOT ----------
+st.subheader("Average Return Curve by Sentiment")
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-if df_selected.shape[0] < 2:
-    st.info("Only one row available — showing market returns instead of correlation.")
-    row = df_selected.iloc[0]
-    sentiment_value = row['statement_sentiment']
-
-    returns = row[return_cols].astype(float)
-
-    def sort_key(col):
-        if col == 'T0': return 0
-        sign = -1 if '-' in col else 1
-        return sign * int(col.replace('T', '').replace('+', '').replace('-', ''))
-
-    returns = returns[sorted(returns.index, key=sort_key)]
-
-    fig1, ax = plt.subplots(figsize=(12, 4))
-    returns.plot(kind='bar', ax=ax, color='skyblue')
-    ax.axhline(0, color='gray', linestyle='--')
-    ax.set_title(f"Returns Around {selected_date.date()} (Sentiment: {sentiment_value:.2f})")
-    ax.set_ylabel("Market Return")
-    ax.set_xlabel("Day")
-    st.pyplot(fig1)
-else:
-    st.write(f"Correlation between sentiment and returns for {selected_date.date()}")
-    corr_matrix = df_selected[numeric_cols].corr()
-    sub_corr = corr_matrix.loc[sentiment_cols, return_cols]
-
-    fig2, ax = plt.subplots(figsize=(12, 3))
-    sns.heatmap(sub_corr, annot=True, cmap='coolwarm', center=0, fmt=".2f", ax=ax)
-    ax.set_title(f'Correlation Matrix — {selected_date.date()}')
-    st.pyplot(fig2)
+fig, ax = plt.subplots(figsize=(12, 6))
+sns.lineplot(data=grouped_returns, x='Day', y='Return', hue='sentiment_bin', marker='o', ax=ax)
+ax.axhline(0, color='gray', linestyle='--')
+ax.set_title("Average Market Return by Sentiment Bin Across Days")
+ax.set_xlabel("Relative Day from Announcement")
+ax.set_ylabel("Average Return")
+ax.grid(True)
+st.pyplot(fig)
