@@ -31,19 +31,21 @@ The main U.S. indices include: S&P 500, NASDAQ, Dow Jones, Russell 2000, and Wil
 
 
 ### Imported Libraries
-os
-re
-glob
-numpy
-pandas
-bs4
-requests
-pandas
-datetime - (‘datetime’, ‘timedelta’)
-fnmatch
-time
-zipfile
-tqdm
-utils.near_regex
-importlib
-openai
+```python
+
+import os
+import re
+import glob
+import numpy as np
+import pandas as pd
+from bs4 import BeautifulSoup
+import requests
+from datetime import datetime, timedelta
+import fnmatch
+from time import sleep
+from zipfile import ZipFile
+from tqdm import tqdm
+from utils.near_regex import *
+import importlib
+import openai
+
