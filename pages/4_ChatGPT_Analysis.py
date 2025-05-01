@@ -78,9 +78,9 @@ tickers = sorted(df['ticker'].dropna().unique())
 
 # ---------- SENTIMENT BINNING ----------
 def sentiment_category(score):
-    if score > 0.2:
+    if score > 0.3:
         return 'Bullish'
-    elif score < -0.2:
+    elif score < -0.3:
         return 'Bearish'
     else:
         return 'Neutral'
