@@ -163,4 +163,4 @@ styled_df = sentiment_summary.style\
     ])\
     .set_properties(**{'text-align': 'center'}, subset=['Sentiment Score'])
 
-st.dataframe(styled_df, use_container_width=True)
+st.dataframe(styled_df, use_container_width=False)
