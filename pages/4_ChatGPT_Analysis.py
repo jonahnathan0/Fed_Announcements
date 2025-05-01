@@ -99,7 +99,7 @@ sentiment_column = 'statement_sentiment' if announcement_type == 'statement' els
 # ---------- SCATTER PLOT ----------
 st.subheader(f"{announcement_type.title()} Sentiment vs Market Returns")
 
-fig, ax = plt.subplots(figsize=(12, 6))
+fig, ax = plt.subplots(figsize=(14, 6))
 
 for ret_col in return_cols:
     sns.scatterplot(
@@ -115,6 +115,12 @@ ax.axvline(0, color='gray', linestyle='--', linewidth=1)
 ax.set_xlabel('GPT Sentiment Score')
 ax.set_ylabel('Market Return')
 ax.set_title(f'{announcement_type.title()} on {selected_date.date()} — Market Returns')
-ax.legend(title='Return Period', loc='upper left')
+ax.legend(
+    title='Return Period',
+    bbox_to_anchor=(1.05, 1),
+    loc='upper left',
+    borderaxespad=0,
+    frameon=True
+)
 ax.grid(True)
 st.pyplot(fig)
