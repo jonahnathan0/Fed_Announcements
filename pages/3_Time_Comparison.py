@@ -155,12 +155,9 @@ sentiment_summary = sentiment_summary.round(3)
 
 styled_df = sentiment_summary.style\
     .format(precision=3)\
-    .background_gradient(cmap='Blues', vmin=0, vmax=1, subset=['Sentiment Score'])\
-    .set_table_styles([
-        {'selector': 'th.col_heading', 'props': [('text-align', 'center'), ('max-width', '150px')]},
-        {'selector': 'th', 'props': [('font-weight', 'bold')]},
-        {'selector': 'td', 'props': [('max-width', '80px'), ('text-align', 'center')]}
-    ])\
-    .set_properties(**{'text-align': 'center'}, subset=['Sentiment Score'])
+    .background_gradient(cmap='Blues', vmin=0, vmax=1)\
+    .set_properties(**{'text-align': 'center'})
 
+st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
 st.dataframe(styled_df, use_container_width=False)
+st.markdown("</div>", unsafe_allow_html=True)
