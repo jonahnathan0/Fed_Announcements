@@ -87,9 +87,13 @@ Monetary policy decisions made from central banks, specifically the US Federal R
 
 Our project investigated how financial markets respond to Fed communications through a sentiment analysis of FOMC announcements. Since Fed communications can significantly impact financial markets, the sentiment from these announcements can provide valuable insights to market participants. Using various language dictionaries to monitor sentiment of the announcements, we were able to compare that sentiment to real returns of stock indices at the time of the announcements. Also, by using OpenAI API with GPT-4, we created a prompt that outputted the bearishness or bullishness of the announcement.
 
-## Links to data
+## Links to Data and Inputs
 - [FOMC Historical Transcripts](https://www.federalreserve.gov/monetarypolicy/fomc_historical_year.htm)
-
+- [Yahoo Finance Python](https://pypi.org/project/yfinance/)
+- [Yahoo Finance Historical Data on Indicies](https://finance.yahoo.com/)
+- [LM Dictionary](https://github.com/jonahnathan0/Fed_Announcements/blob/main/inputs/LM_MasterDictionary_1993-2021.csv)
+- [ML Negative Dictionary](https://github.com/jonahnathan0/Fed_Announcements/blob/main/inputs/ML_negative_unigram.txt)
+- [ML Positive Dictionary](https://github.com/jonahnathan0/Fed_Announcements/blob/main/inputs/ML_positive_unigram.txt)
 
 ---
 ''')
