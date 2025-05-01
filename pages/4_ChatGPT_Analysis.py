@@ -104,8 +104,8 @@ fig, ax = plt.subplots(figsize=(14, 10))
 for ret_col in return_cols:
     sns.scatterplot(
         data=filtered_df,
-        x=sentiment_column,
-        y=ret_col,
+        x=ret_col,
+        y=sentiment_column,
         label=ret_col,
         s=60,
         ax=ax
