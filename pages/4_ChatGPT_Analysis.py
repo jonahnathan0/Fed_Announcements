@@ -7,8 +7,7 @@ import seaborn as sns
 
 # ---------- CONFIG ----------
 st.set_page_config(page_title='Market Returns', layout='wide')
-st.title('ChatGPT Analysis of Central Bank Communications')
-st.markdown("<style>h1 { margin-bottom: 0.5rem !important; }</style>", unsafe_allow_html=True)
+st.markdown('<h1 style="margin-bottom: 0.5rem;">ChatGPT Analysis of Central Bank Communications</h1>', unsafe_allow_html=True)
 
 # ------------------ CUSTOM STYLE ------------------
 st.markdown("""
