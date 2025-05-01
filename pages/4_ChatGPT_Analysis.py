@@ -111,7 +111,6 @@ selected_points = plotly_events(fig1, click_event=True, select_event=False)
 st.plotly_chart(fig1)
 
 # ---------- IF A POINT WAS CLICKED ----------
-# HELLO MY NAME IS JONAH
 if selected_points:
     selected = selected_points[0]
     clicked_date = pd.to_datetime(selected['x'])
