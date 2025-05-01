@@ -95,5 +95,8 @@ Our project investigated how financial markets respond to Fed communications thr
 - [ML Negative Dictionary](https://github.com/jonahnathan0/Fed_Announcements/blob/main/inputs/ML_negative_unigram.txt)
 - [ML Positive Dictionary](https://github.com/jonahnathan0/Fed_Announcements/blob/main/inputs/ML_positive_unigram.txt)
 
+
+### Created by Jonah Nathan, Brian Fullenbaum, Haley Jones, and Kyle Hodrick
+
 ---
 ''')
