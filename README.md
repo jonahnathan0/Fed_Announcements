@@ -1,6 +1,9 @@
 # Market Reactions to FED Announcements
 By: Brian F, Jonah N, Kyle H, Haley J
 
+[Streamlit Dasboard](https://fed-announcements.streamlit.app/)
+[Instructions for this Project](https://ledatascifi.github.io/ledatascifi-2023/content/assignments/project.html)
+
 ### How to navigate the repo 
 - Dataset_Build.ipynb
     - This is our main code where we created our final dataset
