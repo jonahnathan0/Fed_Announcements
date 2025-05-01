@@ -70,7 +70,7 @@ For the market data, we gathered the daily returns (10 days before and after) fo
 As mentioned above, the first step was to load in the index tickers.
 ''')
 
-st.image('assets/img3.png', use_container_width=True)
+st.image('assets/img3.png', use_container_width=False)
 
 st.markdown('''
 Next, we loaded a dataset that included the dates of every FED statement announcement. There was no dataset online of the date of every intermeeting minutes online, so we had to manually input those dates in a corresponding column. 
@@ -78,14 +78,14 @@ Next, we loaded a dataset that included the dates of every FED statement announc
 Next, we loaded the return data for all of the tickers on the date of the statements, as well as classified the announcement type as a statement. This got us an original dataset that looks like the following:
 ''')
 
-st.image('assets/img4.png', use_container_width=True)
+st.image('assets/img4.png', use_container_width=False)
 
 st.markdown('''There were lots of <NA> values scattered throughout the dataset, which were caused due to those days being non-trading days. Most of the <NA> values came in sets of two, which represented the weekends, and Yahoo Finance ignored these days. To fix this problem we actually expanded the search window to around 15 days on either side of the announcement date, and pulled the first 10 valid values on each side
 
 We then followed this exact same procedure for the intermeeting announcements, which got us a dataset that looked like the following:
 ''')
 
-st.image('assets/img5.png', use_container_width=True)
+st.image('assets/img5.png', use_container_width=False)
 
 st.markdown('''
 A meeting ID was assigned to every statement and intermeeting announcement. There were 200 statements with meeting ID’s from 1-200 and 200 corresponding intermeeting minutes with meeting ID’s from 1-200. For example, statement number 5 would match to the corresponding intermeeting number 5. This was necessary because the intermeeting minutes are released many weeks after the matching statement, and sometimes there was another statement release before the intermeeting minutes were released. 
@@ -93,13 +93,13 @@ A meeting ID was assigned to every statement and intermeeting announcement. Ther
 For the sentiment analysis, we loaded the BHR and LM (Loughran-McDonald) sentiment dictionaries. We then compiled the regex for all both dictionaries, and for the positive and negative output for both with the following code:
 ''')
 
-st.image('assets/img6.png', use_container_width=True)
+st.image('assets/img6.png', use_container_width=False)
 
 st.markdown('''
 Next, we used a function to compute the sentiment scores of all of the processed html files of the statements and intermeeting notes. This function loops through the files, reads and parses the html file, extracts and cleans the text, computes normalized sentiment scores, and then stores the results:
 ''')
 
-st.image('assets/img7.png', use_container_width=True)
+st.image('assets/img7.png', use_container_width=False)
 
 st.markdown('''
 Next we implemented the contextual sentiment analysis on the documents by looking at four topics - monetary policy, economic policy, future outlook, and balance sheet. Each bit of code for the topics are similar, the only difference is the word lists. The code goes by the following steps:
@@ -108,68 +108,68 @@ Next we implemented the contextual sentiment analysis on the documents by lookin
 - 3 - Loops for going through files and going over document type
 ''')
 
-st.image('assets/img8.png', use_container_width=True)
+st.image('assets/img8.png', use_container_width=False)
 
 st.markdown('''
 - 4 - Read and Preprocess HTML Text
 ''')
 
-st.image('assets/img9.png', use_container_width=True)
+st.image('assets/img9.png', use_container_width=False)
 
 st.markdown('''
 - 5 - Count positive/negative sentiment near keywords using the NEAR_finder() function
 ''')
 
-st.image('assets/img10.png', use_container_width=True)
+st.image('assets/img10.png', use_container_width=False)
 
 st.markdown('''
 - 6 - Normalize and store results
 ''')
 
-st.image('assets/img11.png', use_container_width=True)
+st.image('assets/img11.png', use_container_width=False)
 
 st.markdown('''We then performed the ChatGPT analysis that consisted of the following steps:
 - 1 - Pip install OpenAI 
 - 2 - Import OpenAI and input the secret API key
 ''')
 
-st.image('assets/img12.png', use_container_width=True)
+st.image('assets/img12.png', use_container_width=False)
 
 st.markdown('''
 - 3 - Looped over dated files
 ''')
 
-st.image('assets/img13.png', use_container_width=True)
+st.image('assets/img13.png', use_container_width=False)
 
 st.markdown('''
 - 4 - Open and parse the HTML file 
 ''')
 
-st.image('assets/img14.png', use_container_width=True)
+st.image('assets/img14.png', use_container_width=False)
 
 st.markdown('''
 - 5 - Construct prompt
 ''')
 
-st.image('assets/img15.png', use_container_width=True)
+st.image('assets/img15.png', use_container_width=False)
 
 st.markdown('''
 - 6 - Send prompt to GPT-4
 ''')
 
-st.image('assets/img16.png', use_container_width=True)
+st.image('assets/img16.png', use_container_width=False)
 
 st.markdown('''
 - 7 - Extract numerical rating and convert to a float 
 ''')
 
-st.image('assets/img17.png', use_container_width=True)
+st.image('assets/img17.png', use_container_width=False)
 
 st.markdown('''
 This GPT process outputted a sentiment rating from -1 (bearish) to 1 (bullish), for meeting ID’s 1-200 for both the statements and the intermeeting minutes. Next we merged all of the GPT analysis into the final dataset using the following code
 ''')
 
-st.image('assets/img18.png', use_container_width=True)
+st.image('assets/img18.png', use_container_width=False)
 
 st.markdown('''
 ### Data Analysis
