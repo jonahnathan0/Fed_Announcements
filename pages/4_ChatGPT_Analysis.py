@@ -90,14 +90,15 @@ selected_tickers = st.sidebar.multiselect(
 if all_option in selected_tickers or not selected_tickers:
     selected_tickers = tickers
 
-# ---------- FILTER DATA ----------
 filtered_df = df[df['ticker'].isin(selected_tickers)]
 
 if filtered_df.empty:
     st.warning("No data available for the selected filters.")
     st.stop()
 
-# ---------- PLOTLY SCATTERPLOT ----------
+# ---------- SCATTERPLOT OF SENTIMENT OVER TIME ----------
+st.subheader("GPT Statement Sentiment Over Time")
+
 fig1 = px.scatter(
     filtered_df,
     x='announcement_date',
@@ -106,45 +107,27 @@ fig1 = px.scatter(
     title='GPT Statement Sentiment Over Time',
     hover_data=['ticker', 'statement_sentiment']
 )
-
-selected_points = plotly_events(fig1, click_event=True, select_event=False)
 st.plotly_chart(fig1)
 
-# ---------- IF A POINT WAS CLICKED ----------
-if selected_points:
-    selected = selected_points[0]
-    clicked_date = pd.to_datetime(selected['x'])
+# ---------- DROPDOWN TO SELECT AN ANNOUNCEMENT ----------
+st.subheader("Explore Correlation for a Specific Announcement")
+date_options = filtered_df['announcement_date'].dropna().sort_values().unique()
+selected_date = st.selectbox("Select an FOMC Announcement Date", date_options)
 
-    st.subheader(f"Market Returns Around {clicked_date.date()}")
+# ---------- CORRELATION MATRIX FOR SELECTED DATE ----------
+df_selected = filtered_df[filtered_df['announcement_date'] == selected_date]
 
-    df_click = df[(df['announcement_date'] == clicked_date) & (df['ticker'].isin(selected_tickers))]
+if df_selected.empty:
+    st.info("No data available for this statement.")
+else:
+    st.write(f"Correlation between sentiment and returns for {selected_date.date()}")
 
-    if df_click.empty:
-        st.info("No return data found for this statement.")
-    else:
-        returns_melted = df_click.melt(
-            id_vars=['ticker'],
-            value_vars=return_cols,
-            var_name='Day',
-            value_name='Return'
-        )
+    # Only use relevant numeric columns
+    numeric_cols = ['statement_sentiment', 'intermeeting_sentiment'] + return_cols
+    corr_df = df_selected[numeric_cols].corr()
 
-        # Optional: Order T-10 to T+10 correctly
-        def sort_key(day_str):
-            if day_str == 'T0': return 0
-            sign = -1 if '-' in day_str else 1
-            return sign * int(day_str.replace('T', '').replace('+', '').replace('-', ''))
-
-        returns_melted['Day'] = pd.Categorical(
-            returns_melted['Day'],
-            categories=sorted(return_cols, key=sort_key),
-            ordered=True
-        )
-
-        fig2, ax = plt.subplots(figsize=(10, 5))
-        sns.lineplot(data=returns_melted, x='Day', y='Return', hue='ticker', marker='o', ax=ax)
-        ax.axvline(x='T0', color='red', linestyle='--')
-        ax.set_title(f'Returns Surrounding {clicked_date.date()}')
-        ax.set_ylabel('Market Return')
-        ax.grid(True)
-        st.pyplot(fig2)
+    # Plot correlation matrix
+    fig2, ax = plt.subplots(figsize=(10, 6))
+    sns.heatmap(corr_df, annot=True, cmap='coolwarm', center=0, fmt=".2f", ax=ax)
+    ax.set_title(f'Correlation Matrix — {selected_date.date()}')
+    st.pyplot(fig2)
