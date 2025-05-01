@@ -27,7 +27,7 @@ This project investigates how financial markets respond to Federal Reserve commu
 ### Data 
 Our dataset scraped FOMC announcements and intermeeting minutes from the Federal Reserve’s website from 2000 to 2024. These files were stored as “monetaryYYYYMMDD.html” and “fomcminutesYYYYMMDD.html”. In total, approximately 200 FOMC statements and number of meeting minutes were included in the dataset. 
 For the market data, we collected the daily returns for each announcement, both 10 days prior and after. The data pulled from ten different indices.
-The main U.S. indices include: S&P 500, NASDAQ, Dow Jones, Russell 2000, and Wilshire 5000. The sector-specific indices include: XLF, XLRE, XLU, XLY, XLP, XLE, XLV, XLI, XLB, XLK, and XLC. The treasury yields include the 3-month treasury bill and the 10-year treasury bill. 
+The main U.S. indices include: S&P 500, NASDAQ, Dow Jones, Russell 2000, and Wilshire 5000. The sector-specific indices include: XLF, XLRE, XLU, XLY, XLP, XLE, XLV, XLI, XLB, XLK, and XLC. The treasury yields include the 3-month treasury bill and the 10-year treasury bill.
 
 
 ### Imported Libraries
