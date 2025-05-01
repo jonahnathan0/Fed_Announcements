@@ -114,14 +114,17 @@ filtered_data = df[
 ]
 
 # ---------- CORRELATION HEATMAP ----------
-st.subheader('Correlation Heatmap: Sentiment vs. Market Returns')
-
-corr_matrix = filtered_data[sentiment_cols + return_cols].corr()
-sentiment_vs_returns = corr_matrix.loc[sentiment_cols, return_cols]
+st.subheader('Correlation Heatmap: Sentiment vs. Market Index Returns')
+avg_returns_by_ticker = filtered_data.groupby('ticker')[return_cols].mean()
+avg_sentiment_by_ticker = filtered_data.groupby('ticker')[sentiment_cols].mean()
+merged = avg_sentiment_by_ticker.join(avg_returns_by_ticker)
+sentiment_vs_indices = merged[sentiment_cols + return_cols].corr()
+sentiment_vs_indices = sentiment_vs_indices.loc[sentiment_cols, return_cols]
+sentiment_vs_indices = sentiment_vs_indices.T
 
 fig, ax = plt.subplots(figsize=(16, 8))
 sns.heatmap(
-    sentiment_vs_returns,
+    sentiment_vs_indices,
     annot=True,
     fmt='.3f',
     cmap='coolwarm',
@@ -131,9 +134,10 @@ sns.heatmap(
     cbar=True,
     ax=ax
 )
-ax.set_title('Correlation Heatmap')
+ax.set_title('Correlation Heatmap: Market Index vs. Sentiment')
 plt.xticks(rotation=45)
 st.pyplot(fig)
+
 
 # ---------- AVERAGE RETURN LINE CHART ----------
 st.subheader('Average Return by Day Relative to FOMC Announcement')
