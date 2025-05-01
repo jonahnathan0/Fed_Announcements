@@ -5,7 +5,7 @@ By: Brian F, Jonah N, Kyle H, Haley J
 
 [Instructions for this Project](https://ledatascifi.github.io/ledatascifi-2023/content/assignments/project.html)
 
-[Presentation Slides](Final_Slides.pdf)
+[Presentation Slides](assets/Final_Slides.pdf)
 
 ### How to navigate the repo 
 - Dataset_Build.ipynb
