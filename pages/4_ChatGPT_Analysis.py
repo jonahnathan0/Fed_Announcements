@@ -113,8 +113,8 @@ for ret_col in return_cols:
 
 ax.axhline(0, color='gray', linestyle='--', linewidth=1)
 ax.axvline(0, color='gray', linestyle='--', linewidth=1)
-ax.set_xlabel('GPT Sentiment Score')
-ax.set_ylabel('Market Return')
+ax.set_xlabel('Market Return')
+ax.set_ylabel('GPT Sentiment Score')
 ax.set_title(f'{announcement_type.title()} on {selected_date.date()} — Market Returns')
 ax.legend(
     title='Return Period',
