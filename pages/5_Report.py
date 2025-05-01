@@ -77,13 +77,13 @@ For the FOMC statements, we observed sentiment ratings ranging from strongly bea
 When comparing all of the sentiment scores as well as the topic specific sentiment scores all in a correlation matrix, the data seems hectic. One thing to notice when looking at the correlation matrix is that on the days leading up to the announcement (T-10 - T-0), there is a stronger correlation and presence of more positive sentiment scores and positive returns. This is represented by the red boxes in the heatmap. Then after the announcement (T-0 - T-10), there is a weaker correlation between the two variables which represents slightly more negative correlations and weaker returns. This is represented by the blue boxes in the heatmap.
 ''')
 
-st.image('assets/img2.png', use_column_width=True)
+st.image('assets/img2.png', use_container_width=True)
 
 st.markdown('''
 In turn, this causes there to be an overall decline in average return from a few days before the statements right up until a few days after. However, we do see the markets bounce back after the decline, as the days after moves closer to T-10. 
 ''')
 
-st.image('assets/img.png', use_column_width=True)
+st.image('assets/img.png', use_container_width=True)
 
 st.markdown('''
 Throughout our analysis, the GPT-4 model demonstrated consistency in sentiment rating assignments across different document types and time periods. When looking at the average return curve by sentiment bins that were decided using the ChatGPT implementation, there are a few conclusions to be drawn. The first is that the bin representing the bearish sentiment is significantly more volatile than the neutral and bullish bins after the announcement (T-0). One reason for this volatility in the bearish sentiment bin could be that negative market sentiment could reflect more uncertainty or fear from investors, which can lead to overreactions and more dramatic price adjustments in the markets. Additionally, bearish communications from the FED could imply that there is upcoming or unexpected tightening or a poor economic outlook, which can contribute to these price changes.
