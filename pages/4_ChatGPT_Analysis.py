@@ -98,5 +98,5 @@ ax.set_title('GPT Statement Sentiment Over Time')
 ax.set_xlabel('Announcement Date')
 ax.set_ylabel('Statement Sentiment Score')
 ax.grid(True)
-ax.legend(title='Ticker', bbox_to_anchor=(1.05, 1), loc='upper left')w
+ax.legend(title='Ticker', bbox_to_anchor=(1.05, 1), loc='upper left')
 st.pyplot(fig)
