@@ -166,7 +166,7 @@ st.markdown('''
 st.image('assets/img17.png', use_container_width=False)
 
 st.markdown('''
-This GPT process outputted a sentiment rating from -1 (bearish) to 1 (bullish), for meeting ID’s 1-200 for both the statements and the intermeeting minutes. Next we merged all of the GPT analysis into the final dataset using the following code
+This GPT process outputted a sentiment rating from -1 (bearish) to 1 (bullish), for meeting ID’s 1-200 for both the statements and the intermeeting minutes. Next we merged all of the GPT analysis into the final dataset using the following code:
 ''')
 
 st.image('assets/img18.png', use_container_width=False)
