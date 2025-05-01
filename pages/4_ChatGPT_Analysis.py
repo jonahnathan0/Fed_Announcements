@@ -10,8 +10,6 @@ st.set_page_config(page_title='Market Returns', layout='wide')
 col1, col2 = st.columns([6, 1])
 with col1:
     st.title('ChatGPT Analysis of Central Bank Communications')
-with col2:
-    st.image('assets/openai-chatgpt-surge-deepseek.jpg', width=80)
 
 
 # ------------------ CUSTOM STYLE ------------------
