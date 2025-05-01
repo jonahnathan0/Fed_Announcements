@@ -7,7 +7,12 @@ import seaborn as sns
 
 # ---------- CONFIG ----------
 st.set_page_config(page_title='Market Returns', layout='wide')
-st.title('ChatGPT Analysis of Central Bank Communications')
+col1, col2 = st.columns([6, 1])
+with col1:
+    st.title('ChatGPT Analysis of Central Bank Communications')  # Title
+with col2:
+    st.image("assets/images.png", width=80)  # Image
+
 
 # ------------------ CUSTOM STYLE ------------------
 st.markdown("""
