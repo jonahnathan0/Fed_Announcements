@@ -99,7 +99,7 @@ if filtered_df.empty:
 # ---------- SCATTERPLOT OF SENTIMENT OVER TIME ----------
 st.subheader("GPT Statement Sentiment Over Time")
 
-fig1 = px.scatter(
+fig = px.scatter(
     filtered_df,
     x='announcement_date',
     y='statement_sentiment',
@@ -107,30 +107,27 @@ fig1 = px.scatter(
     title='GPT Statement Sentiment Over Time',
     hover_data=['ticker', 'statement_sentiment']
 )
-st.plotly_chart(fig1)
-
-# ---------- DROPDOWN TO SELECT AN ANNOUNCEMENT ----------
-st.subheader("Explore Correlation for a Specific Announcement")
-date_options = filtered_df['announcement_date'].dropna().sort_values().unique()
-selected_date = st.selectbox("Select an FOMC Announcement Date", date_options)
-
-# ---------- CORRELATION MATRIX FOR SELECTED DATE ----------
-df_selected = filtered_df[filtered_df['announcement_date'].dt.date == selected_date.date()]
-
-sentiment_cols = ['statement_sentiment', 'intermeeting_sentiment']
-numeric_cols = sentiment_cols + return_cols
+st.plotly_chart(fig)
 
 if df_selected.shape[0] < 2:
-    st.info("Only one row available — showing sentiment and return values instead of correlation.")
-    st.dataframe(df_selected[['announcement_date', 'ticker'] + numeric_cols])
-else:
-    st.write(f"Correlation between sentiment and returns for {selected_date.date()}")
+    st.info("Only one row available — showing market returns instead of correlation.")
 
-    corr_matrix = df_selected[numeric_cols].corr()
+    row = df_selected.iloc[0]
+    sentiment_value = row['statement_sentiment']
+    
+    returns = row[return_cols].astype(float)
 
-    sub_corr = corr_matrix.loc[sentiment_cols, return_cols]
+    def sort_key(col):
+        if col == 'T0': return 0
+        sign = -1 if '-' in col else 1
+        return sign * int(col.replace('T', '').replace('+', '').replace('-', ''))
 
-    fig2, ax = plt.subplots(figsize=(12, 3))
-    sns.heatmap(sub_corr, annot=True, cmap='coolwarm', center=0, fmt=".2f", ax=ax)
-    ax.set_title(f'Correlation Matrix — {selected_date.date()}')
-    st.pyplot(fig2)
+    returns = returns[sorted(returns.index, key=sort_key)]
+
+    fig1, ax = plt.subplots(figsize=(12, 4))
+    returns.plot(kind='bar', ax=ax, color='skyblue')
+    ax.axhline(0, color='gray', linestyle='--')
+    ax.set_title(f"Returns Around {selected_date.date()} (Sentiment: {sentiment_value:.2f})")
+    ax.set_ylabel("Market Return")
+    ax.set_xlabel("Day")
+    st.pyplot(fig1)
