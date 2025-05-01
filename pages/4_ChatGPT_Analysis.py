@@ -112,10 +112,7 @@ df_melted['Day'] = pd.Categorical(
 grouped_returns = df_melted.groupby(['Day', 'sentiment_bin'])['Return'].mean().reset_index()
 
 # ---------- PLOT ----------
-st.markdown('## Average Return Curve by Sentiment')
-import matplotlib.pyplot as plt
-import seaborn as sns
-
+st.subheader('Average Return Curve by Sentiment')
 fig, ax = plt.subplots(figsize=(12, 6))
 sns.lineplot(data=grouped_returns, x='Day', y='Return', hue='sentiment_bin', marker='o', ax=ax)
 ax.axhline(0, color='gray', linestyle='--')
