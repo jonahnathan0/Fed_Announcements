@@ -55,10 +55,15 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ---------- GET DOCUMENT TYPE ----------
-announcement_type = filtered_df['document_type'].iloc[0].lower()  # e.g. 'statement' or 'intermeeting'
+# ---------- FILTER DATA ----------
+filtered_df = df[(df['announcement_date'] == selected_date) & (df['ticker'].isin(selected_tickers))]
 
-# Map document type to sentiment column
+if filtered_df.empty:
+    st.warning("No data available for the selected filters.")
+    st.stop()
+
+# ---------- GET DOCUMENT TYPE ----------
+announcement_type = filtered_df['document_type'].iloc[0].lower()
 sentiment_column = 'statement_sentiment' if announcement_type == 'statement' else 'intermeeting_sentiment'
 
 # ---------- SCATTER PLOT ----------
