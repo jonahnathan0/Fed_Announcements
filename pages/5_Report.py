@@ -67,10 +67,111 @@ Our dataset scraped FOMC announcements and intermeeting minutes from the Fed’s
 For the market data, we gathered the daily returns (10 days before and after) for each announcement. The data pulled from 18 different indices. The main U.S. indices include: the S&P 500, NASDAQ, Dow Jones, Russell 2000, and Wilshire 5000. Sector-specific indices include: XLF, XLRE, XLU, XLY, XLP, XLE, XLV, XLI, XLB, XLK, and the XLC. The Treasury yields include: the 3-month Treasury Bill and 10-year Treasury.   
 
 ### Methodology
-To start, we used a data processing pipeline to: load HTML files, extract announcement dates, parse HTML to extract clean text from the announcements using BeautifulSoup, and limit the text length to make sure the data was compatible with the API. We also used the traditional lexicon analysis approach that included both BHR sentiment and LM sentiment.
+As mentioned above, the first step was to load in the index tickers.
+''')
 
-Our GPT-4 prompts asked for sentiment analysis for each announcement (from beginning to end), and a sentiment rating from -1 (Bearish) to 1 (Bullish). The model’s responses were then parsed by using regular expressions for numerical sentiment extraction. Exception handling was implemented in the case of documents failing to process correctly. We then organized the results into structured datasets by: adding meeting IDs, labeling the document types, and saving the data in CSV format to aid in future visualization analysis.  
+st.image('assets/img3.png', use_container_width=True)
 
+st.markdown('''
+Next, we loaded a dataset that included the dates of every FED statement announcement. There was no dataset online of the date of every intermeeting minutes online, so we had to manually input those dates in a corresponding column. 
+
+Next, we loaded the return data for all of the tickers on the date of the statements, as well as classified the announcement type as a statement. This got us an original dataset that looks like the following:
+''')
+
+st.image('assets/img4.png', use_container_width=True)
+
+st.markdown('''There were lots of <NA> values scattered throughout the dataset, which were caused due to those days being non-trading days. Most of the <NA> values came in sets of two, which represented the weekends, and Yahoo Finance ignored these days. To fix this problem we actually expanded the search window to around 15 days on either side of the announcement date, and pulled the first 10 valid values on each side
+
+We then followed this exact same procedure for the intermeeting announcements, which got us a dataset that looked like the following:
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+A meeting ID was assigned to every statement and intermeeting announcement. There were 200 statements with meeting ID’s from 1-200 and 200 corresponding intermeeting minutes with meeting ID’s from 1-200. For example, statement number 5 would match to the corresponding intermeeting number 5. This was necessary because the intermeeting minutes are released many weeks after the matching statement, and sometimes there was another statement release before the intermeeting minutes were released. 
+
+For the sentiment analysis, we loaded the BHR and LM (Loughran-McDonald) sentiment dictionaries. We then compiled the regex for all both dictionaries, and for the positive and negative output for both with the following code:
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+Next, we used a function to compute the sentiment scores of all of the processed html files of the statements and intermeeting notes. This function loops through the files, reads and parses the html file, extracts and cleans the text, computes normalized sentiment scores, and then stores the results:
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+Next we implemented the contextual sentiment analysis on the documents by looking at four topics - monetary policy, economic policy, future outlook, and balance sheet. Each bit of code for the topics are similar, the only difference is the word lists. The code goes by the following steps:
+- 1 - Define keywords 
+- 2 - Define source folders with the HTML files 
+- 3 - Loops for going through files and going over document type
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+- 4 - Read and Preprocess HTML Text
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+- 5 - Count positive/negative sentiment near keywords using the NEAR_finder() function
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+- 6 - Normalize and store results
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''We then performed the ChatGPT analysis that consisted of the following steps:
+- 1 - Pip install OpenAI 
+- 2 - Import OpenAI and input the secret API key
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+- 3 - Looped over dated files
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+- 4 - Open and parse the HTML file 
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+- 5 - Construct prompt
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+- 6 - Send prompt to GPT-4
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+- 7 - Extract numerical rating and convert to a float 
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
+This GPT process outputted a sentiment rating from -1 (bearish) to 1 (bullish), for meeting ID’s 1-200 for both the statements and the intermeeting minutes. Next we merged all of the GPT analysis into the final dataset using the following code
+''')
+
+st.image('assets/img2.png', use_container_width=True)
+
+st.markdown('''
 ### Data Analysis
 For the FOMC statements, we observed sentiment ratings ranging from strongly bearish (-0.7) to mildly bullish (0.2), with a trend toward neutral-slightly bullish from more recent statements. The statements also showed a mean sentiment score of approximately -0.1, indicating a slightly overall bearish inclination. For the intermeeting minutes, there were 11 documents that were unable to be processed, but with the vast majority we observed sentiment ratings ranging from moderately bearish (-0.5) to mildly bullish (0.2). The minutes had a slightly more positive mean for ratings at around neutral (0.0), showcasing less volatility than the statements. 
 
@@ -89,7 +190,6 @@ st.markdown('''
 Throughout our analysis, the GPT-4 model demonstrated consistency in sentiment rating assignments across different document types and time periods. When looking at the average return curve by sentiment bins that were decided using the ChatGPT implementation, there are a few conclusions to be drawn. The first is that the bin representing the bearish sentiment is significantly more volatile than the neutral and bullish bins after the announcement (T-0). One reason for this volatility in the bearish sentiment bin could be that negative market sentiment could reflect more uncertainty or fear from investors, which can lead to overreactions and more dramatic price adjustments in the markets. Additionally, bearish communications from the FED could imply that there is upcoming or unexpected tightening or a poor economic outlook, which can contribute to these price changes.
 
 ### Conclusions
-Conclusions
 There are a lot of potential conclusions that can be drawn from this analysis including general assumptions from seeing how the market reacts to FED announcements. In the time comparison page of the dashboard, users can look at an individual announcement and see how a stock index reacted to that announcement. For people who focus on specific indices, being able to see and compare how they react versus other indices on the same date is interesting.
 
 ---
