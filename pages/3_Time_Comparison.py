@@ -146,10 +146,20 @@ st.subheader('Sentiment Scores for Selected Announcement')
 sentiment_data = filtered_df[sentiment_cols]
 
 if sentiment_data.shape[0] > 1:
-    sentiment_summary = sentiment_data.mean().to_frame(name='Average Sentiment Score')
+    sentiment_summary = sentiment_data.mean().to_frame(name='Sentiment Score')
 else:
     sentiment_summary = sentiment_data.T
     sentiment_summary.columns = ['Sentiment Score']
 
 sentiment_summary = sentiment_summary.round(3)
-st.dataframe(sentiment_summary)
+
+styled_df = sentiment_summary.style\
+    .format(precision=3)\
+    .background_gradient(cmap='Blues', subset=['Sentiment Score'])\
+    .set_table_styles([
+        {'selector': 'th.col_heading', 'props': [('text-align', 'center')]},
+        {'selector': 'th', 'props': [('font-weight', 'bold')]}
+    ])\
+    .set_properties(**{'text-align': 'center'}, subset=['Sentiment Score'])
+
+st.dataframe(styled_df, use_container_width=True)
